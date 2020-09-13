@@ -1,27 +1,11 @@
-BEGIN;
-
-TRUNCATE
-  snap_locations,
-  snap_locator_users
-  RESTART IDENTITY CASCADE;
-
-INSERT INTO snap_locator_users (user_name, password)
-VALUES
-  ('DemoUser2020', 'DemoUserSnap1234!'),
-  ('b.deboop', 'Bodeep Deboop', 'Bo', 'bo-password'),
-  ('c.bloggs', 'Charlie Bloggs', 'Charlie', 'charlie-password'),
-  ('s.smith', 'Sam Smith', 'Sam', 'sam-password'),
-  ('lexlor', 'Alex Taylor', 'Lex', 'lex-password'),
-  ('wippy', 'Ping Won In', 'Ping', 'ping-password');
-
-INSERT INTO snap_locations (id, store_name, address, Address_Line__2, city,state, zip5, zip4, county, longitude, latitude)
+INSERT INTO snap_locations (id, store_name, address, Address_Line__2, city,state, zip5, zip4, county, longitude, latitude) 
 VALUES
     ( 
-      "id": 1,"Store_Name": "DOLLARTREE 8500", "Address": "978 SE Broad St","Address_Line__2": null, "City": "Metter", "State": "GA",  "Zip5": "30439", "Zip4": "3933",  "County": "CANDLER",  "Longitude": -82.055046, "Latitude": 32.396797 
+      "id": 1, "Store_Name": "DOLLARTREE 8500", "Address": "978 SE Broad St","Address_Line__2": null, "City": "Metter", "State": "GA",  "Zip5": "30439", "Zip4": "3933",  "County": "CANDLER",  "Longitude": -82.055046, "Latitude": 32.396797 
     ), 
               
 (
-     "id": 2,"Store_Name": "Mercado's Meat Market No", "Address": "560 N Tehama St","Address_Line__2": null, "City": "Willows", "State": "CA",  "Zip5": "95988", "Zip4": "2533",  "County": "GLENN", "Longitude": -122.19395, "Latitude": 39.526478
+     "id": 2, "Store_Name": "Mercado's Meat Market No", "Address": "560 N Tehama St","Address_Line__2": null, "City": "Willows", "State": "CA",  "Zip5": "95988", "Zip4": "2533",  "County": "GLENN", "Longitude": -122.19395, "Latitude": 39.526478
     ), 
 
 (
@@ -45,5 +29,5 @@ VALUES
 (
      "id": 9, "Store_Name": "Meijer Gas Station 214", "Address": "13705 S Route 59", "Address_Line__2": null, "City": "Plainfield", "State": "IL", "Zip5": "60544", "Zip4": "6106", "County": "WILL", "Longitude": -88.201988, "Latitude": 41.632893
     );
-COMMIT;    
+
 

@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const {NODE_ENV} = require('./config');
 const authRouter = require('./auth/auth-router');
 const usersRouter = require('./users/users-router');
+const storesRouter = require('./snapLocations/store-locations-router');
 
 const app = express();
 
@@ -22,7 +23,8 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/auth', authRouter);
-app.use('/api/users', usersRouter)
+app.use('/api/users', usersRouter);
+app.use('/api/stores', storesRouter);
 
 app.use(function errorHandler(error, req, res, next) {
     let response;
