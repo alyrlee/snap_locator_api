@@ -1,8 +1,6 @@
 BEGIN;
 
-TRUNCATE
-  snap_locator_users,
-  RESTART IDENTITY CASCADE;
+TRUNCATE snap_locator_users, RESTART IDENTITY CASCADE;
 
 INSERT INTO snap_locator_users (user_name, password) 
 VALUES
