@@ -2,9 +2,10 @@ require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
 const helmet = require('helmet');
 const {NODE_ENV} = require('./config');
-// const authRouter = require('./auth/auth-router');
+const authRouter = require('./auth/auth-router');
 const usersRouter = require('./users/users-router');
 // const storesRouter = require('./snapLocations/store-locations-router');
 
@@ -22,7 +23,12 @@ app.get('/', (req, res) => {
     res.send('Hello, welcome to SNAP Locator API')
 });
 
-// app.use('/api/auth', authRouter);
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJN1t_tDeuEmsRUsoyG83frY4&fields=name,rating,formatted_phone_number&key=AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU", "localhost:300"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
 // app.use('/api/stores', storesRouter);
 
