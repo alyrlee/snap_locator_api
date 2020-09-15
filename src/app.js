@@ -48,7 +48,8 @@ res.send('Hello, welcome to SNAP Locator API')
 });
 
 app.get('/', (req, res) => {
-    axios.get(`https://maps.googleapis.com/maps/api/js?key=AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU&libraries=places`)
+    //headers: {"Access-Control-Origin: "*"" }
+    axios.get(`https://maps.googleapis.com/maps/api/js?key=AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU&libraries=places`, `https://maps.googleapis.com/maps-api-v3/api/js/42/4/places_impl.js`)
     then(response => {
         res.send(response.data.results);
     }).catch(error => {

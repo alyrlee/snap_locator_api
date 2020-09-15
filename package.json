@@ -16,6 +16,7 @@
   "author": "Ashley Lee",
   "license": "ISC",
   "dependencies": {
+    "@googlemaps/google-maps-services-js": "^3.1.6",
     "@types/jsonwebtoken": "^8.5.0",
     "axios": "^0.20.0",
     "bcryptjs": "^2.4.3",
