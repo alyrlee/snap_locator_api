@@ -23,6 +23,10 @@ app.get('/', (req, res) => {
     res.send('Hello, welcome to SNAP Locator API')
 });
 
+app.get('/localhost:3000', (req, res) => {
+    res.send('connected!')
+});
+
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin","*","https://maps.googleapis.com/maps/api/js?key=AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU&libraries=places", "localhost:3000"); // update to match the domain you will make the request from
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
