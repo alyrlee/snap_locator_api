@@ -1,3 +1,5 @@
+const express = require('express');
+const axios = require('axios');
 const client = new Client({});
 
 client
@@ -10,7 +12,7 @@ client
     timeout: 1000 // milliseconds
   }, axiosInstance)
   .then(r => {
-    console.log(r.data.results[0].elevation);
+    console.log(r.data.results[0].places);
   })
   .catch(e => {
     console.log(e);

@@ -57,28 +57,13 @@ app.get('/', (req, res) => {
     })
 });
 
-// fetch('http://localhost:3000'),  {
-//         mode: 'cors',
-//         credentials: 'include',
-//         Cookie: Version=1,
-//         Origin: 'localhost:3000',
-        // Credentials: 'same-origin',
-        // Method: 'GET',
-        // headers: {
-        // 'Content-Type': 'application/json',
-        // 'Access-Control-Allow-Origin':"https://maps.googleapis.com/maps/api/js?key=AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU&libraries=places",
-        // 'Access-Control-Allow-Headers': "Origin, X-Requested-With, Content-Type, Accept"
-      // 'Content-Type': 'application/x-www-form-urlencoded',
-
-
-
-
 app.get('localhost:3000/find', (req, res) => {
     res.send('connected!')
 });
 
 app.post('/', function(req, res, next) {
-    // Handle the post for this route
+    // Handle the post for app routes
+    //migrate to sep. folders for relative modules
    });
 
 module.exports = app;
