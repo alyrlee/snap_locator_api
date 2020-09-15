@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
 });
 
 app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJN1t_tDeuEmsRUsoyG83frY4&fields=name,rating,formatted_phone_number&key=AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU", "localhost:300"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Origin", "https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJN1t_tDeuEmsRUsoyG83frY4&fields=name,rating,formatted_phone_number&key=AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU", "localhost:3000"); // update to match the domain you will make the request from
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
@@ -44,5 +44,9 @@ app.use(function errorHandler(error, req, res, next) {
     }
     res.status(500).json(response);
 });
+
+app.post('/', function(req, res, next) {
+    // Handle the post for this route
+   });
 
 module.exports = app;
