@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS snap_locator_users;
+DROP TABLE IF EXISTS users;
