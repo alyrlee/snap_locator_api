@@ -14,8 +14,8 @@ fetch(`${API_ENDPOINT}/stores`, {
 
 
 .post(jsonBodyParser, (req, res, next) => {
-    const { id, Store_Name } = req.body
-    const newStore = { id, Store_Name }
+    const { Objectid, Store_Name } = req.body
+    const newStore = { ObjectId, Store_Name }
 
     for (const [key, value] of Object.entries(newStore)) {
       if (value == null) {

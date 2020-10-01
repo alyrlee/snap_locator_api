@@ -3,13 +3,11 @@ const express = require('express');
 const morgan = require('morgan');
 const axios = require('axios');
 const cors = require('cors');
-const jwt = require('jsonwebtoken');
 const helmet = require('helmet');
 const {NODE_ENV} = require('./config');
 const authRouter = require('./auth/auth-router');
 const usersRouter = require('./users/users-router');
-const { reset } = require('nodemon');
-// const storesRouter = require('./snapLocations/store-locations-router');
+// const storesRouter = require('./snapLocations/store-locations-router'); //snaplocations
 
 const app = express();
 
@@ -59,6 +57,10 @@ app.get('/', (req, res) => {
 });
 
 app.get('localhost:3000/find', (req, res) => {
+    res.send('connected!')
+});
+
+app.get('localhost:3000/stores', (req, res) => {
     res.send('connected!')
 });
 

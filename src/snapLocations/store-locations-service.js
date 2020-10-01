@@ -5,7 +5,7 @@ const storeLocationsService = {
         return db 
         .from(SNAP_Store_Locations.csv)
         .select ( 
-        'id',
+        'ObjectId',
         'Store_Name',
         'Address',
         'Address_Line__2', 
