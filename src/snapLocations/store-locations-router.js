@@ -1,3 +1,4 @@
+const storeLocationsService = require('./store-locations-service')
 const userName = 'DemoUser2020'
 const password = 'DemoUserSnap1234!'
 
@@ -14,7 +15,7 @@ fetch(`${API_ENDPOINT}/stores`, {
 
 
 .post(jsonBodyParser, (req, res, next) => {
-    const { Objectid, Store_Name } = req.body
+    const { ObjectId, Store_Name } = req.body
     const newStore = { ObjectId, Store_Name }
 
     for (const [key, value] of Object.entries(newStore)) {

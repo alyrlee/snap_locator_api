@@ -7,7 +7,7 @@ const helmet = require('helmet');
 const {NODE_ENV} = require('./config');
 const authRouter = require('./auth/auth-router');
 const usersRouter = require('./users/users-router');
-// const storesRouter = require('./snapLocations/store-locations-router'); //snaplocations
+const storesRouter = require('./snapLocations/store-locations-router');
 
 const app = express();
 
@@ -26,7 +26,7 @@ app.use(function(req, res, next) {
   });
 app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
-// app.use('/api/stores', storesRouter);
+app.use('/api/stores', storesRouter);
 
 app.use(function errorHandler(error, req, res, next) {
     let response;
@@ -60,10 +60,9 @@ app.get('localhost:3000/find', (req, res) => {
     res.send('connected!')
 });
 
-app.get('localhost:3000/stores', (req, res) => {
+app.get('localhost:8000/api/stores', (req, res) => {
     res.send('connected!')
 });
-
 app.post('/', function(req, res, next) {
     // Handle the post for app routes
     //migrate to sep. folders for relative modules
