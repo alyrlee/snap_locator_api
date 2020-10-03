@@ -1,34 +1,40 @@
 const storeLocationsService = {
-    getAllStores(knex, db) {
-        return knex, db 
-        .from('snap_locations')
-        .select ( 
-        'ObjectId',
-        'Store_Name',
-        'Address',
-        'Address_Line__2', 
-        'City',
-        'Zip 5',
-        'Zip 4',
-        'County',
-        'Longitude',
-        'Latitude'
-        ) 
+    getAllStores(knex, ObjectId ) {
+        return knex
+            .select('*') 
+            .from('snap_locations')
+            .where({Store_Name: Store_Name});
     }, 
-  insertStoreLocations(db, newStore) {
-      return db
-      .insert(newStore)
-      .into('Store_Name')
-      .returning('*')
-      .then(([Store_Name]) => Store_Name)
-      .then(Store_Name => storeLocationsService.getByObjectId(db, ObjectId))
+   getStoresById(knex, ObjectId, Store_Name) {
+        return knex
+            .from('snap_locations')
+            .select('*')
+            .where(
+                {ObjectId: ObjectId},
+                {Store_Name: Store_Name},
+            )
+                 .first(); 
   },  
-  
-  deleteStoreLocations(db, ObjectId){
-      return db('Store_Name')
-      .where('ObjectId', ObjectId)
-      .delete()
+  insertStoreLocations(knex, newStore) {
+         return knex
+            .insert(newStore)
+            .into('snap_locations')
+            .returning('*')
+            .then(rows => {
+                return rows[0]
+            });
+  },         
+  deleteStoreLocations(knex, ObjectId){
+        return knex ('Store_Name')
+            .where('ObjectId', ObjectId)
+            .delete();
   },
+  updateStoreLocations(knex, ObjectId,) {
+        return knex ('Store_Name')
+            .where('ObjectId', ObjectId)
+            .update();
+  }
+};  
 
 // serializeStores(Store_Name)
 
