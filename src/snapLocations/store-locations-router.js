@@ -1,3 +1,4 @@
+const express = require('express')
 const storeLocationsService = require('./store-locations-service')
 const userName = 'DemoUser2020'
 const password = 'DemoUserSnap1234!'
@@ -8,7 +9,7 @@ fetch(`${API_ENDPOINT}/stores`, {
     Authorization: `Schema ${userName}:${password}`
   },
   body: JSON.stringify({
-    id: 1,
+    ObjectId: 1,
     Store_Name: "Walmart Super Center"
   })
 })

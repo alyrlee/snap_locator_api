@@ -28,6 +28,21 @@ app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/stores', storesRouter);
 
+app.get('/', (req, res) => {
+    res.send('Hello, welcome to SNAP Locator API')
+    });
+    
+    app.get('/', (req, res) => {
+        //headers: {"Access-Control-Origin: "*"" }
+        //${`process.env.GOOGLE_MAPS_API_KEY`}
+        axios.get(`https://maps.googleapis.com/maps/api/js?key=AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU&libraries=places`, `https://maps.googleapis.com/maps-api-v3/api/js/42/4/places_impl.js`)
+        then(response => {
+            res.send(response.data.results);
+        }).catch(error => {
+            res.send(error.message);
+        })
+    });    
+
 app.use(function errorHandler(error, req, res, next) {
     let response;
 
@@ -41,31 +56,5 @@ app.use(function errorHandler(error, req, res, next) {
     res.status(500).json(response);
 });
 
-app.get('/', (req, res) => {
-res.send('Hello, welcome to SNAP Locator API')
-});
-
-app.get('/', (req, res) => {
-    //headers: {"Access-Control-Origin: "*"" }
-    //${`process.env.GOOGLE_MAPS_API_KEY`}
-    axios.get(`https://maps.googleapis.com/maps/api/js?key=AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU&libraries=places`, `https://maps.googleapis.com/maps-api-v3/api/js/42/4/places_impl.js`)
-    then(response => {
-        res.send(response.data.results);
-    }).catch(error => {
-        res.send(error.message);
-    })
-});
-
-// app.get('localhost:3000/find', (req, res) => {
-//     res.send('connected!')
-// });
-
-// app.get('localhost:8000/api/stores', (req, res) => {
-//     res.send('connected!')
-// });
-app.post('/', function(req, res, next) {
-    // Handle the post for app routes
-    //migrate to sep. folders for relative modules
-   });
 
 module.exports = app;
