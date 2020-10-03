@@ -24,9 +24,6 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
-app.use('/api/auth', authRouter);
-app.use('/api/users', usersRouter);
-app.use('/api/stores', storesRouter);
 
 app.get('/', (req, res) => {
     res.send('Hello, welcome to SNAP Locator API')
@@ -41,7 +38,11 @@ app.get('/', (req, res) => {
         }).catch(error => {
             res.send(error.message);
         })
-    });    
+    });  
+    
+app.use('/api/auth', authRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/stores', storesRouter);   
 
 app.use(function errorHandler(error, req, res, next) {
     let response;
