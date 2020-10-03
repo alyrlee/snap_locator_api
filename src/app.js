@@ -56,13 +56,13 @@ app.get('/', (req, res) => {
     })
 });
 
-app.get('localhost:3000/find', (req, res) => {
-    res.send('connected!')
-});
+// app.get('localhost:3000/find', (req, res) => {
+//     res.send('connected!')
+// });
 
-app.get('localhost:8000/api/stores', (req, res) => {
-    res.send('connected!')
-});
+// app.get('localhost:8000/api/stores', (req, res) => {
+//     res.send('connected!')
+// });
 app.post('/', function(req, res, next) {
     // Handle the post for app routes
     //migrate to sep. folders for relative modules
