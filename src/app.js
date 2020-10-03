@@ -19,16 +19,20 @@ app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors());
 
+app.get('/', (req, res) => {
+    res.send('Hello, welcome to SNAP Locator API')
+    });
+
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin","*"); // update to match the domain you will make the request from
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
 
-app.get('/', (req, res) => {
-    res.send('Hello, welcome to SNAP Locator API')
-    });
-    
+// app.get('localhost:3000/find', (req, res) => {
+//     res.send('connected!')
+// });
+
 app.get('/', (req, res) => {
         //headers: {"Access-Control-Origin: "*"" }
         //${`process.env.GOOGLE_MAPS_API_KEY`}

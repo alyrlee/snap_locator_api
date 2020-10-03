@@ -1,10 +1,7 @@
-const express = require('express');
-const xss = require('xss');
-
 const storeLocationsService = {
-    getAllStores(db) {
-        return db 
-        .from(SNAP_Store_Locations.csv)
+    getAllStores(knex, db) {
+        return knex, db 
+        .from('snap_locations')
         .select ( 
         'ObjectId',
         'Store_Name',
@@ -33,7 +30,7 @@ const storeLocationsService = {
       .delete()
   },
 
-serializeStores(Store_Name)
-}
+// serializeStores(Store_Name)
+
 
 module.exports = storeLocationsService;
