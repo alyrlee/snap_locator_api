@@ -1,5 +1,15 @@
-const express = require('express')
-const storeLocationsService = require('./store-locations-service')
+const path = require('path');
+const express = require('express');
+const xss = require('xss');
+const storeLocationsService = require('./store-locations-service');
+const {requireAuth} = require('../middleware/jwt-auth');
+
+const storeLocationsRouter = express.Router();
+const jsonParser = express.json();
+
+const serializeSnapLocationsList = snaplocations => {{
+
+}}
 const userName = 'DemoUser2020'
 const password = 'DemoUserSnap1234!'
 
@@ -15,7 +25,8 @@ fetch(`${API_ENDPOINT}/stores`, {
 })
 
 
-.post(jsonBodyParser, (req, res, next) => {
+.post(jsonParser, (req, res, next) => {
+
     const { ObjectId, Store_Name } = req.body
     const newStore = { ObjectId, Store_Name }
 
