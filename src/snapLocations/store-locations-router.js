@@ -41,12 +41,17 @@ storeLocationsRouter
     .catch(next)
 })
 
+.post(jsonParser, (req, res, next) => {
 
-for (const [ObjectId, Store_Name] of Object.entries(newStore))
-      if (value == null)
-        return res.status(400).json({
-          error: { message: `Missing '${key}' in request body` }
-        })
+  const { ObjectId, Store_Name } = req.body
+  const newStore = { ObjectId, Store_Name }
+
+  for (const [ObjectId, Store_Name] of Object.entries(newStore)) {
+    if (value == null) {
+      return res.status(400).json({
+        error: `Missing '${key}' in request body`
+      })
+    }
 
     storeLocationsService.insertSnapLocations(
       req.app.get('db'),
@@ -61,7 +66,7 @@ for (const [ObjectId, Store_Name] of Object.entries(newStore))
       .catch(next)
   })
 
-articlesRouter
+storesLocationsRouter
   .route('/:store_name_ObjectId')
   .all(requireAuth)
   .all((req, res, next) => {
@@ -81,9 +86,11 @@ articlesRouter
       })
       .catch(next)
   })
+  
   .get((req, res, next) => {
     res.json(serializeSnapLocationsList(res.store_name))
   })
+    
   .delete((req, res, next) => {
     storeLocationsService.deleteStore_Name(
       req.app.get('db'),
@@ -108,7 +115,7 @@ articlesRouter
 
     storeLocationsService.updateStore_Name(
       req.app.get('db'),
-      req.params.store_name.ObjectId
+      req.params.store_name.ObjectId,
       store_nameToUpdate
     )
       .then(numRowsAffected => {
@@ -117,19 +124,5 @@ articlesRouter
       .catch(next)
   })
 
-.post(jsonParser, (req, res, next) => {
 
-    const { ObjectId, Store_Name } = req.body
-    const newStore = { ObjectId, Store_Name }
-
-    for (const [ObjectId, Store_Name] of Object.entries(newStore)) {
-      if (value == null) {
-        return res.status(400).json({
-          error: `Missing '${key}' in request body`
-        })
-      }
-    }
-  
-    
- 
-  module.exports = storeLocationsRouter;
+module.exports = storeLocationsRouter;
