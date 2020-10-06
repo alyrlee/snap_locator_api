@@ -22,7 +22,6 @@ fetch(`${API_ENDPOINT}/stores`, {
 })
 
 const serializeSnapLocationsList = store_name => {{
-
   ObjectId: store_name.ObjectId,
   store_name: xss(store_name.store_name),
   address: xss(store_name.address),
@@ -32,6 +31,7 @@ const serializeSnapLocationsList = store_name => {{
 
 storeLocationsRouter
 .route('/')
+.all(requireAuth)
 .get((req, res, next) => {
   const knexInstance = req.app.get('db')
   storeLocationsService.getSnapLocations(knexInstance)
@@ -63,10 +63,12 @@ for (const [ObjectId, Store_Name] of Object.entries(newStore))
 
 articlesRouter
   .route('/:store_name_ObjectId')
+  .all(requireAuth)
   .all((req, res, next) => {
     storeLocationsService.getByObjectId(
       req.app.get('db'),
-      req.params.store_name.ObjectId
+      req.params.store_name.ObjectId,
+      req.user.id
     )
       .then(store_name => {
         if (!store_name) {
