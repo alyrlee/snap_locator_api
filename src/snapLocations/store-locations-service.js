@@ -1,17 +1,18 @@
 const storeLocationsService = {
-    getAllStores(knex, ObjectId ) {
+    getAllStores(knex, ObjectId, Store_Name ) {
         return knex
             .select('*') 
             .from('snap_locations')
-            .where({Store_Name: Store_Name});
+            .where(
+                {ObjectId: ObjectId},
+                {Store_Name: Store_Name});
     }, 
-   getStoresById(knex, ObjectId, Store_Name) {
+   getStoresById(knex, ObjectId ) {
         return knex
             .from('snap_locations')
             .select('*')
             .where(
                 {ObjectId: ObjectId},
-                {Store_Name: Store_Name},
             )
                  .first(); 
   },  
