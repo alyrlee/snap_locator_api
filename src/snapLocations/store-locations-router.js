@@ -21,13 +21,13 @@ fetch(`${API_ENDPOINT}/stores`, {
   })
 })
 
-const serializeSnapLocationsList = store_name => {{
+const serializeSnapLocationsList = store_name => ({
   ObjectId: store_name.ObjectId,
   store_name: xss(store_name.store_name),
   address: xss(store_name.address),
   city: xss(store_name.city),
   zip5: store_name.zip5
-}}
+})
 
 storeLocationsRouter
   .route('/')
@@ -62,7 +62,7 @@ storeLocationsService.insertSnapLocations(
             .json(serializeSnapLocationsList(store_name))
       })
       .catch(next)
-  })
+  }
 
 storesLocationsRouter
   .route('stores/:store_name_ObjectId')
