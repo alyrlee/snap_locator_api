@@ -1,5 +1,5 @@
 const storeLocationsService = {
-    getAllStores(knex, ObjectId, Store_Name ) {
+    getSnapLocations(knex, ObjectId, Store_Name ) {
         return knex
             .select('*') 
             .from('snap_locations')
@@ -7,7 +7,7 @@ const storeLocationsService = {
                 {ObjectId: ObjectId},
                 {Store_Name: Store_Name});
     }, 
-   getStoresById(knex, ObjectId ) {
+   getSnapLocationsById(knex, ObjectId ) {
         return knex
             .from('snap_locations')
             .select('*')
@@ -16,23 +16,23 @@ const storeLocationsService = {
             )
                  .first(); 
   },  
-  insertStoreLocations(knex, newStore) {
+  insertSnapLocations(knex, newSnapLocation) {
          return knex
-            .insert(newStore)
+            .insert(newSnapLocation)
             .into('snap_locations')
             .returning('*')
             .then(rows => {
                 return rows[0]
             });
   },         
-  deleteStoreLocations(knex, ObjectId){
+  deleteSnapLocations(knex,Store_Name){
         return knex ('Store_Name')
-            .where('ObjectId', ObjectId)
+            .where('Store_Name', Store_Name)
             .delete();
   },
-  updateStoreLocations(knex, ObjectId,) {
+  updateSnapLocations(knex, Store_Name) {
         return knex ('Store_Name')
-            .where('ObjectId', ObjectId)
+            .where('Store_Name', Store_Name)
             .update();
   }
 };  
