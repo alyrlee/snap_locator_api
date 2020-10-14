@@ -65,12 +65,12 @@ storeLocationsService.insertSnapLocations(
   }
 
 storesLocationsRouter
-  .route('stores/:Store_Name_ObjectId')
+  .route('/stores')
   .all(requireAuth)
   .all((req, res, next) => {
-    storeLocationsService.getByObjectId(
+    storeLocationsService.getStoreName(
       req.app.get('db'),
-      req.params.store_name.ObjectId,
+      req.params.Store_Name.Store_Name,
       req.user.id
     )
       .then(Store_Name => {
