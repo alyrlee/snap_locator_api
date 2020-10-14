@@ -21,12 +21,12 @@ const password = 'DemoUserSnap1234!'
 //   })
 // })
 
-const serializeSnapLocationsList = store_name => ({
-  ObjectId: store_name.ObjectId,
-  store_name: xss(store_name.store_name),
-  address: xss(store_name.address),
-  city: xss(store_name.city),
-  zip5: store_name.zip5
+const serializeSnapLocationsList = Store_Name => ({
+  ObjectId:Store_Name.ObjectId,
+  store_name: xss(Store_Name.Store_Name),
+  address: xss(Store_Name.address),
+  city: xss(Store_Name.city),
+  zip5: Store_Name.zip5
 })
 
 storeLocationsRouter
@@ -35,8 +35,8 @@ storeLocationsRouter
   .get((req, res, next) => {
     const knexInstance = req.app.get('db')
     storeLocationsService.getSnapLocations(knexInstance)
-      .then(store_name => {
-        res.json(store_name.map(serializeSnapLocationsList))
+      .then(Store_Name => {
+        res.json(Store_Name.map(serializeSnapLocationsList))
     })
         .catch(next)
 })
@@ -55,17 +55,17 @@ storeLocationsService.insertSnapLocations(
   req.app.get('db'),
       newSnapLocation
     )
-        .then(store_name => {
+        .then(Store_Name => {
           res
             .status(201)
-            .location(path.posix.join(req.originalUrl, `/${store_name.ObjectId}`))
-            .json(serializeSnapLocationsList(store_name))
+            .location(path.posix.join(req.originalUrl, `/${Store_Name.ObjectId}`))
+            .json(serializeSnapLocationsList(Store_Name))
       })
       .catch(next)
   }
 
 storesLocationsRouter
-  .route('stores/:store_name_ObjectId')
+  .route('stores/:Store_Name_ObjectId')
   .all(requireAuth)
   .all((req, res, next) => {
     storeLocationsService.getByObjectId(
@@ -73,20 +73,20 @@ storesLocationsRouter
       req.params.store_name.ObjectId,
       req.user.id
     )
-      .then(store_name => {
-        if (!store_name) {
+      .then(Store_Name => {
+        if (!Store_Name) {
           return res.status(404).json({
             error: { message: `Store location doesn't exist` }
           })
         }
-        res.store_name = store_name
+        res.Store_Name = Store_Name
         next()
       })
       .catch(next)
   })
   
   .get((req, res, next) => {
-    res.json(serializeSnapLocationsList(res.store_name))
+    res.json(serializeSnapLocationsList(res.Store_Name))
   })
     
   .delete((req, res, next) => {
@@ -113,7 +113,7 @@ storesLocationsRouter
 
     storeLocationsService.updateStore_Name(
       req.app.get('db'),
-      req.params.store_name.store_name,
+      req.params.Store_Name.Store_Name,
       store_nameToUpdate
     )
       .then(updateStore_Name => {
