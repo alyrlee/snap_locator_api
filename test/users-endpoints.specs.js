@@ -22,9 +22,9 @@ describe ('User Endpoints', function() {
 
     after('disconnect from db', () => db.destroy());
 
-    afterEach('cleanup', () => db('rose_entries').truncate());
+    afterEach('cleanup', () => db('').truncate());
 
-    afterEach('cleanup', () => db('garden_users').delete());
+    afterEach('cleanup', () => db('users').delete());
 
     describe ('POST /api/users', () => {
         context ('User Validation', () => {
@@ -149,7 +149,7 @@ describe ('User Endpoints', function() {
                 })
                 .expect(res => {
                     db
-                        .from('garden_users')
+                        .from('users')
                         .select('*')
                         .where({id: res.body.id})
                         .first()
