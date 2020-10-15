@@ -21,9 +21,9 @@ describe ('Authorized Endpoints', function() {
 
     after('disconnect from db', () => db.destroy());
 
-    afterEach('cleanup', () => db('snap_locations').truncate());
+    afterEach('cleanup', () => db('users').truncate());
 
-    afterEach('cleanup', () => db('snap_locator_users').delete());
+    afterEach('cleanup', () => db('users').delete());
 
     describe (`POST /api/auth/login`, () => {
         
