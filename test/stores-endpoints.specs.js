@@ -2,7 +2,7 @@ const knex = require('knex');
 const app = require('../src/app');
 const {makeStoresArray} = require('./stores.fixtures');
 const {makeUsersArray} = require('./users.fixtures');
-const helpers = require('./test-helpers');
+const helpers = require('./store-helpers');
 const supertest = require('supertest');
 
 describe ('Stores Endpoints', function() {
@@ -28,7 +28,7 @@ describe ('Stores Endpoints', function() {
                 helpers.seedUsers(db, testUsers)
             })
             
-            it ('Reponds with 200 and SNAP locations not found', () => {
+            it ('Responds with 200 and SNAP locations not found', () => {
                 return supertest(app)
                     .get('/api/stores')
                     .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
@@ -47,7 +47,7 @@ describe ('Stores Endpoints', function() {
 
             beforeEach('insert test users', () => {
                 return db
-                .into('snap_locator_users')
+                .into('users')
                 .insert(testUsers)
             });
 
@@ -61,11 +61,6 @@ describe ('Stores Endpoints', function() {
                 {
                     name: `GET /api/stores`,
                     path: '/api/stores/',
-                    method: supertest(app).get,
-                },
-                {
-                    name: `GET /api/stores:stores_ObjectId`,
-                    path: '/api/stores/1',
                     method: supertest(app).get,
                 },
                 {
@@ -100,6 +95,6 @@ describe ('Stores Endpoints', function() {
                     })
                 })
             })
-        }
-    }
+        })
+    })
 })

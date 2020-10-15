@@ -2,7 +2,7 @@ const knex = require('knex');
 const bcrypt = require('bcryptjs');
 const app = require('../src/app');
 const {makeUsersArray} = require('./users.fixtures');
-const helpers = require('./test-helpers');
+const helpers = require('./store-helpers');
 const supertest = require('supertest');
 const { expect } = require('chai');
 

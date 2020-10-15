@@ -2,7 +2,7 @@ const knex = require('knex');
 const app = require('../src/app');
 const {makeStoresArray} = require('./stores.fixtures');
 const {makeUsersArray} = require('./users.fixtures');
-const helpers = require('./test-helpers');
+const helpers = require('./store-helpers');
 const supertest = require('supertest');
 
 describe ('Protected Endpoints', function() {
@@ -21,21 +21,21 @@ describe ('Protected Endpoints', function() {
 
     after('disconnect from db', () => db.destroy());
 
-    before('clean the second table', () => db('snap_locator__users').delete());
+    before('clean the second table', () => db('users').delete());
 
     before('clean the first table', () => db('store_locations').truncate());
 
-    afterEach('cleanup second table', () => db('snap_locator_users').delete());
+    afterEach('cleanup second table', () => db('users').delete());
 
     afterEach('cleanup first table', () => db('store_locations').truncate());
 
     beforeEach('insert test users', () => {
         return db
-        .into('snap_locator_users')
+        .into('users')
         .insert(testUsers)
     });
 
-    beforeEach('insert user feedback', () => {
+    beforeEach('insert store location', () => {
         return db
         .into('store_locations')
         .insert(testStores)
@@ -43,13 +43,8 @@ describe ('Protected Endpoints', function() {
 
     const protectedEndpoints = [
         {
-            name: `GET /api/stores`,
-            path: '/api/stores/',
-            method: supertest(app).get,
-        },
-        {
-            name: `GET /api/stores:sores_id`,
-            path: '/api/stores/1',
+            name: `GET /api/users`,
+            path: '/api/users/',
             method: supertest(app).get,
         },
         {

@@ -8,10 +8,10 @@ const UsersService = {
         return db('users')
             .where({user_name}
             .first()
-            .then(user => !!user);
+            .then(([user]) => !!user));
     },
     insertNewUser(db, newUser) {
-        return db
+        return db('users')
             .insert(newUser)
             .into('users')
             .returning('*')
