@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
-const axios = require('axios');
 const cors = require('cors');
 const helmet = require('helmet');
 const {NODE_ENV} = require('./config');
@@ -28,21 +27,6 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
-
-// app.get('localhost:3000/find', (req, res) => {
-//     res.send('connected!')
-// });
-
-// app.get('/', (req, res) => {
-//         //headers: {"Access-Control-Origin: "*"" }
-//         //${`process.env.GOOGLE_MAPS_API_KEY`}
-//     axios.get(`https://maps.googleapis.com/maps/api/js?key=AIzaSyDPpPhiwe2nBilWB_ihli85BlyRID4DnpU&libraries=places`, `https://maps.googleapis.com/maps-api-v3/api/js/42/4/places_impl.js`)
-//         then(response => {
-//             res.send(response.data.results);
-//         }).catch(error => {
-//             res.send(error.message);
-//         })
-//     });  
     
 app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
