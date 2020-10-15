@@ -17,13 +17,7 @@ describe ('Stores Endpoints', function() {
     });
 
     after('disconnect from db', () => db.destroy());
-
-    before('clean the second table', () => db('snap_locator__users').delete());
-
     before('clean the first table', () => db('store_locations').truncate());
-
-    afterEach('cleanup second table', () => db('snap_locator_users').delete());
-
     afterEach('cleanup first table', () => db('store_locations').truncate());
 
     describe (`GET /api/stores`, () => {
@@ -34,15 +28,15 @@ describe ('Stores Endpoints', function() {
                 helpers.seedUsers(db, testUsers)
             })
             
-            it ('Reponds with 200 and SNAP locations not found, () => {
+            it ('Reponds with 200 and SNAP locations not found', () => {
                 return supertest(app)
                     .get('/api/stores')
                     .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
                     .expect(200, [])
             })
         })
-        
-        context ('Given there is user feedback and comments in the database', () => {
+    
+        context ('Given there is user in the database', () => {
             const testStores = makeStoresArray();
             const testUsers = makeUsersArray();
             const validUser = testUsers[0];
@@ -51,59 +45,61 @@ describe ('Stores Endpoints', function() {
                 helpers.seedUsers(db, testUsers)
             })
 
-    beforeEach('insert test users', () => {
-        return db
-        .into('snap_locator_users')
-        .insert(testUsers)
-    });
+            beforeEach('insert test users', () => {
+                return db
+                .into('snap_locator_users')
+                .insert(testUsers)
+            });
 
-    beforeEach('insert user feedback', () => {
-        return db
-        .into('store_locations')
-        .insert(testStores)
-    });
+            beforeEach('insert user feedback', () => {
+                return db
+                .into('store_locations')
+                .insert(testStores)
+            });
 
-    const protectedEndpoints = [
-        {
-            name: `GET /api/stores`,
-            path: '/api/stores/',
-            method: supertest(app).get,
-        },
-        {
-            name: `GET /api/stores:sores_id`,
-            path: '/api/stores/1',
-            method: supertest(app).get,
-        },
-        {
-            name: `POST /api/stores`,
-            path: '/api/stores/',
-            method: supertest(app).post
+            const protectedEndpoints = [
+                {
+                    name: `GET /api/stores`,
+                    path: '/api/stores/',
+                    method: supertest(app).get,
+                },
+                {
+                    name: `GET /api/stores:stores_ObjectId`,
+                    path: '/api/stores/1',
+                    method: supertest(app).get,
+                },
+                {
+                    name: `POST /api/stores`,
+                    path: '/api/stores/',
+                    method: supertest(app).post
+                }
+            ];
+
+            protectedEndpoints.forEach(endpoint => {
+                describe (endpoint.name, () => {
+                    it ('Responds 401 `Missing bearer token` when no bearer token', () => {
+                        return endpoint.method(endpoint.path)
+                            .expect(401, {error: `Missing bearer token`})
+                    })
+
+                    it ('Responds 401 `Unauthorized request` when invalid JWT secret', () => {
+                        const validUser = testUsers[0];
+                        const invalidSecret = 'bad-secret';
+
+                        return endpoint.method(endpoint.path)
+                            .set('Authorization', helpers.makeAuthHeader(validUser, invalidSecret))
+                            .expect(401, {error: `Unauthorized request`})
+                    })
+
+                    it ('Responds with 401 `Unauthorized request` when invalid sub in payload', () => {
+                        const invalidUser = {user_name: 'fake-user', id: 1}
+
+                        return endpoint.method(endpoint.path)
+                            .set('Authorization', helpers.makeAuthHeader(invalidUser))
+                            .expect(401, {error: `Unauthorized request`})
+                    })
+                })
+            })
         }
-    ];
-
-    protectedEndpoints.forEach(endpoint => {
-        describe (endpoint.name, () => {
-            it ('Responds 401 `Missing bearer token` when no bearer token', () => {
-                return endpoint.method(endpoint.path)
-                    .expect(401, {error: `Missing bearer token`})
-            })
-
-            it ('Responds 401 `Unauthorized request` when invalid JWT secret', () => {
-                const validUser = testUsers[0];
-                const invalidSecret = 'bad-secret';
-
-                return endpoint.method(endpoint.path)
-                    .set('Authorization', helpers.makeAuthHeader(validUser, invalidSecret))
-                    .expect(401, {error: `Unauthorized request`})
-            })
-
-            it ('Responds with 401 `Unauthorized request` when invalid sub in payload', () => {
-                const invalidUser = {user_name: 'fake-user', id: 1}
-
-                return endpoint.method(endpoint.path)
-                    .set('Authorization', helpers.makeAuthHeader(invalidUser))
-                    .expect(401, {error: `Unauthorized request`})
-            })
-        })
-    })
+    }
 })
