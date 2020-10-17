@@ -1,4 +1,4 @@
-INSERT INTO snap_locations (X, Y, ObjectId, store_name, address, Address_Line__2, city,state, zip5, zip4, county, longitude, latitude) 
+INSERT INTO snap_locations (X, Y, ObjectId, Store_Name, address, Address_Line__2, city, state, zip5, zip4, county, longitude, latitude) 
 VALUES
     ( 
       "ObjectId": 1, "Store_Name": "DOLLARTREE 8500", "Address": "978 SE Broad St","Address_Line__2": null, "City": "Metter", "State": "GA",  "Zip5": "30439", "Zip4": "3933",  "County": "CANDLER",  "Longitude": -82.055046, "Latitude": 32.396797 

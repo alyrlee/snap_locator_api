@@ -1,7 +1,6 @@
 const knex = require('knex');
 const app = require('../src/app');
 const {makeStoresArray} = require('./stores.fixtures');
-const {makeUsersArray} = require('./users.fixtures');
 const helpers = require('./store-helpers');
 const supertest = require('supertest');
 
@@ -17,43 +16,42 @@ describe ('Stores Endpoints', function() {
     });
 
     after('disconnect from db', () => db.destroy());
-    before('clean the first table', () => db('store_locations').truncate());
-    afterEach('cleanup first table', () => db('store_locations').truncate());
+    before('clean the first table', () => db('snap_locations').truncate());
+    afterEach('cleanup first table', () => db('snap_locations').truncate());
 
     describe (`GET /api/stores`, () => {
-        context('Given there is no user feedback and comments in the database', () => {
-            const testUsers = makeUsersArray();
+        context('Given there is no store feedback in the database', () => {
+            const testStores = makeStoresArray();
                     
-            beforeEach('insert test users', () => {
-                helpers.seedUsers(db, testUsers)
+            beforeEach('insert test stores', () => {
+                helpers.seedStores(db, testStores)
             })
             
             it ('Responds with 200 and SNAP locations not found', () => {
                 return supertest(app)
                     .get('/api/stores')
-                    .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
+                    .set('Authorization', helpers.makeAuthHeader(testStores[0]))
                     .expect(200, [])
             })
         })
     
-        context ('Given there is user in the database', () => {
+        context ('Given there is a store in the database', () => {
             const testStores = makeStoresArray();
-            const testUsers = makeUsersArray();
-            const validUser = testUsers[0];
+            const validStores = testStores[0];
                     
-            beforeEach('insert test users', () => {
-                helpers.seedUsers(db, testUsers)
+            beforeEach('insert test stores', () => {
+                helpers.seedStores(db, testStores)
             })
 
-            beforeEach('insert test users', () => {
+            beforeEach('insert test stores', () => {
                 return db
-                .into('users')
-                .insert(testUsers)
+                .into('stores')
+                .insert(testStores)
             });
 
-            beforeEach('insert user feedback', () => {
+            beforeEach('insert store', () => {
                 return db
-                .into('store_locations')
+                .into('snap_locations')
                 .insert(testStores)
             });
 
@@ -78,21 +76,21 @@ describe ('Stores Endpoints', function() {
                     })
 
                     it ('Responds 401 `Unauthorized request` when invalid JWT secret', () => {
-                        const validUser = testUsers[0];
+                        const validStores = testStores[0];
                         const invalidSecret = 'bad-secret';
 
                         return endpoint.method(endpoint.path)
-                            .set('Authorization', helpers.makeAuthHeader(validUser, invalidSecret))
+                            .set('Authorization', helpers.makeAuthHeader(validStores, invalidSecret))
                             .expect(401, {error: `Unauthorized request`})
                     })
 
-                    it ('Responds with 401 `Unauthorized request` when invalid sub in payload', () => {
-                        const invalidUser = {user_name: 'fake-user', id: 1}
+                //     it ('Responds with 401 `Unauthorized request` when invalid sub in payload', () => {
+                //         const invalidUser = {user_name: 'fake-user', id: 1}
 
-                        return endpoint.method(endpoint.path)
-                            .set('Authorization', helpers.makeAuthHeader(invalidUser))
-                            .expect(401, {error: `Unauthorized request`})
-                    })
+                //         return endpoint.method(endpoint.path)
+                //             .set('Authorization', helpers.makeAuthHeader(invalidUser))
+                //             .expect(401, {error: `Unauthorized request`})
+                //     })
                 })
             })
         })

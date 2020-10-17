@@ -23,11 +23,11 @@ describe ('Protected Endpoints', function() {
 
     before('clean the second table', () => db('users').delete());
 
-    before('clean the first table', () => db('store_locations').truncate());
+    before('clean the first table', () => db('snap_locations').truncate());
 
     afterEach('cleanup second table', () => db('users').delete());
 
-    afterEach('cleanup first table', () => db('store_locations').truncate());
+    afterEach('cleanup first table', () => db('snap_locations').truncate());
 
     beforeEach('insert test users', () => {
         return db
@@ -37,7 +37,7 @@ describe ('Protected Endpoints', function() {
 
     beforeEach('insert store location', () => {
         return db
-        .into('store_locations')
+        .into('snap_locations')
         .insert(testStores)
     });
 
