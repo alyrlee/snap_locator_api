@@ -1,6 +1,8 @@
 BEGIN;
 
-TRUNCATE users, RESTART IDENTITY CASCADE;
+TRUNCATE 
+  users, 
+  RESTART IDENTITY CASCADE;
 
 INSERT INTO users (fullname,user_name, password) 
 VALUES
