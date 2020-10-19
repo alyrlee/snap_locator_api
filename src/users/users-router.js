@@ -6,7 +6,6 @@ const { hashSync } = require('bcryptjs');
 const usersRouter = express.Router();
 const jsonBodyParser = express.json();
 
-// router to handle new user registrations on the server. //
 usersRouter
     .post('/', jsonBodyParser, (req, res, next) => {
         const {password, user_name} = req.body;

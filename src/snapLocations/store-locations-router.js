@@ -10,16 +10,16 @@ const storeLocationsRouter = express.Router();
 const userName = 'DemoUser2020'
 const password = 'DemoUserSnap1234!'
 
-fetch(`${API_ENDPOINT}/stores`, {
-  method: 'POST',
-  headers: {
-    Authorization: `Schema ${userName}:${password}`
-  },
-  body: JSON.stringify({
-    ObjectId: 1,
-    Store_Name: "Walmart Super Center"
-  })
-})
+// fetch(`${API_ENDPOINT}/stores`, {
+//   method: 'POST',
+//   headers: {
+//     Authorization: `Schema ${userName}:${password}`
+//   },
+//   body: JSON.stringify({
+//     ObjectId: 1,
+//     Store_Name: "Walmart Super Center"
+//   })
+// })
 
 const serializeSnapLocationsList = Store_Name => ({
   ObjectId:Store_Name.ObjectId,
