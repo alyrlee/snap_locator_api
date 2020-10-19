@@ -1,8 +1,6 @@
 BEGIN;
 
-TRUNCATE 
-  users, 
-  RESTART IDENTITY CASCADE;
+TRUNCATE TABLE users;
 
 INSERT INTO users (fullname,user_name, password) 
 VALUES
