@@ -2,7 +2,7 @@ const knex = require('knex');
 const jwt = require('jsonwebtoken');
 const app = require('../src/app');
 const {makeUsersArray} = require('./users.fixtures');
-const helpers = require('./store-helpers');
+const helpers = require('./test-helpers');
 const supertest = require('supertest');
 
 describe ('Authorized Endpoints', function() {

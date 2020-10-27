@@ -1,7 +1,7 @@
 const knex = require('knex');
 const app = require('../src/app');
 const {makeStoresArray} = require('./stores.fixtures');
-const helpers = require('./store-helpers');
+const helpers = require('./test-helpers');
 const supertest = require('supertest');
 
 describe ('Stores Endpoints', function() {
