@@ -2,7 +2,7 @@ function makeUsersArray() {
     return [
       {
         id: 1,
-        user_name: 'DemoUser2020',
+        username: 'DemoUser2020',
         password: 'DemoUserSnap1234!',
       },
     ]

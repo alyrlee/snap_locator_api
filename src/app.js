@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
+// const { v4: uuidv4 } = require('uuid');
 const cors = require('cors');
 const helmet = require('helmet');
 const {NODE_ENV} = require('./config');
@@ -16,6 +17,7 @@ const morganOption = (NODE_ENV === 'production')
 
 app.use(morgan(morganOption));
 app.use(helmet());
+// app.use(uuid());
 app.use(cors());
 
 app.get('/', (req, res) => {
@@ -30,7 +32,8 @@ app.use(function(req, res, next) {
     
 app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
-app.use('/api/stores', storesRouter);   
+app.use('/api/stores', storesRouter); 
+
 
 app.use(function errorHandler(error, req, res, next) {
     let response;

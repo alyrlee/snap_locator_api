@@ -85,7 +85,7 @@ describe ('Stores Endpoints', function() {
                     })
 
                 //     it ('Responds with 401 `Unauthorized request` when invalid sub in payload', () => {
-                //         const invalidUser = {user_name: 'fake-user', id: 1}
+                //         const invalidUser = {username: 'fake-user', id: 1}
 
                 //         return endpoint.method(endpoint.path)
                 //             .set('Authorization', helpers.makeAuthHeader(invalidUser))

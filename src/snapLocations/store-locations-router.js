@@ -7,28 +7,6 @@ const {requireAuth} = require('../middleware/jwt-auth');
 
 const storeLocationsRouter = express.Router();
 
-// const userName = 'DemoUser2020'
-// const password = 'DemoUserSnap1234!'
-
-// storeLocationsRouter
-//   .postStores(credentials) {
-//     return fetch(`${config.API_ENDPOINT}/stores`, {
-//       method: 'POST',
-//       headers: {
-//       Authorization: `Schema ${userName}:${password}`,
-//       'content-type': 'application/json',
-//   },
-//   body: JSON.stringify({
-//     ObjectId: 1,
-//     Store_Name: "Walmart Super Center"
-//   })
-//   .then(res =>
-//     (!res.ok)
-//       ? res.json().then(e => Promise.reject(e))
-//       : res.json()
-//   )
-// })
-
 const serializeSnapLocationsList = Store_Name => ({
   ObjectId:Store_Name.ObjectId,
   store_name: xss(Store_Name.Store_Name),
@@ -52,7 +30,7 @@ storeLocationsRouter
   const { Store_Name } = req.body
   const newSnapLocation = { Store_Name }
 
-  for (const [Store_Name] of Object.entries(newSnapLocation)) {
+  for (const [key, value] of Object.entries(newSnapLocation)) {
     if (value == null) {
       return res.status(400).json({
         error: `Missing '${key}' in request body`

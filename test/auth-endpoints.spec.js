@@ -8,6 +8,9 @@ const supertest = require('supertest');
 describe ('Authorized Endpoints', function() {
     let db;
 
+    // const { testUsers } = helpers.makeArticlesFixtures()
+    // const testUser = testUsers[0]
+
     const testUsers = makeUsersArray();
     const testUser = testUsers[0];
 
@@ -34,17 +37,17 @@ describe ('Authorized Endpoints', function() {
             )
         })
 
-        // insert comments and view feedback for SNAP grocers and locations
-        // beforeEach('insert user feedback', () => {
-        //     return db
-        //     .into('store_locations')
-        // })
+        // insert user saved location data for SNAP grocers and locations
+        beforeEach('insert user saved location data', () => {
+            return db
+            .into('store_locations')
+        })
 
-        const requiredFields = ['user_name', 'password'];
+        const requiredFields = ['username', 'password'];
 
         requiredFields.forEach(field => {
             const loginAttemptBody = {
-                user_name: testUser.user_name,
+                username: testUser.username,
                 password: testUser.password
             }
 
@@ -57,35 +60,35 @@ describe ('Authorized Endpoints', function() {
                     .expect(400, {error: `Missing ${field} in request body.`})
             })
 
-            it (`responds 400 'incorrect user_name or password' when bad creds provided`, () => {
-                const invalidUser = {user_name: 'not-user', password: 'notpassword10'};
+            it (`responds 400 'incorrect username or password' when bad creds provided`, () => {
+                const invalidUser = {username: 'not-user', password: 'notpassword10'};
 
                 return supertest(app)
                     .post('/api/auth/login')
                     .send(invalidUser)
-                    .expect(400, {error: `Incorrect user_name or password.`})
+                    .expect(400, {error: `Incorrect username or password.`})
             })
 
-            it (`responds 400 'incorrect user_name or password' when bad password`, () => {
-                const badPassword = {user_name: testUser.user_name, password: 'incorrect'};
+            it (`responds 400 'incorrect username or password' when bad password`, () => {
+                const badPassword = {username: testUser.username, password: 'incorrect'};
 
                 return supertest(app)
                     .post('/api/auth/login')
                     .send(badPassword)
-                    .expect(400, {error: `Incorrect user_name or password.`})
+                    .expect(400, {error: `Incorrect username or password.`})
             })
 
             it ('responds 200 and JWT auth token using secret when valid credentials', () => {
                 const validCreds = {
-                    user_name: testUser.user_name,
+                    username: testUser.username,
                     password: testUser.password,
                 }
 
                 const expectedToken = jwt.sign(
-                    {user_id: testUser.id},
+                    {user_id: testUser.id},  //payload
                     process.env.JWT_SECRET,
                     {
-                        subject: testUser.user_name,
+                        subject: testUser.username,
                         expiresIn: process.env.JWT_EXPIRY,
                         algorithm: 'HS256',
                     }

@@ -4,9 +4,9 @@ const bcrypt = require('bcryptjs');
 
 // service object to handle db queries to POST and authenticate new user registrations to the user database. //
 const UsersService = {
-    hasDuplicateUser(db, user_name) {
+    hasDuplicateUser(db, userName) {
         return db('users')
-            .where({user_name}
+            .where({userName}
             .first()
             .then(([user]) => !!user));
     },
@@ -38,7 +38,7 @@ const UsersService = {
     serializeUser(user) {
         return {
             id: user.id,
-            user_name: xss(user.user_name),
+            username: xss(user.userName),
             date_created: new Date(user.date_created)
         };
     }

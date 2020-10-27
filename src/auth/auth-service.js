@@ -3,9 +3,9 @@ const jwt = require('jsonwebtoken');
 const config = require('../config');
 
 const AuthService = {
-    getRegisteredUser(db, user_name) {
-        return db('snap_locator_users')
-            .where({user_name})
+    getRegisteredUser(db, userName) {
+        return db('users')
+            .where({userName})
             .first();
     },
     comparePasswords(password, hash) {

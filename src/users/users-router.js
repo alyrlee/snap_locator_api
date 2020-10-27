@@ -8,9 +8,9 @@ const jsonBodyParser = express.json();
 
 usersRouter
     .post('/', jsonBodyParser, (req, res, next) => {
-        const {password, user_name} = req.body;
+        const {password, userName} = req.body;
 
-        for (const field of ['user_name', 'password']) {
+        for (const field of ['userName', 'password']) {
             if (!req.body[field]) {
                 return res.status(400).json({error: `Missing '${field}' in request body.`});
             }
@@ -24,7 +24,7 @@ usersRouter
 
         UsersService.hasDuplicateUser(
             req.app.get('db'),
-            user_name
+            username
         )
             .then(hasDuplicateUser => {
                 if (hasDuplicateUser) {
@@ -35,7 +35,7 @@ usersRouter
                     .then(hashedPassword => {
                         
                         const newUser = {
-                            user_name,
+                            userName,
                             password: hashedPassword,
                             date_created: 'now()'
                         };

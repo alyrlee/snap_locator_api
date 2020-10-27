@@ -33,11 +33,11 @@ describe ('User Endpoints', function() {
                 helpers.seedUsers(db, testUsers)
             })
 
-            const requiredFields = ['user_name', 'password'];
+            const requiredFields = ['username', 'password'];
 
             requiredFields.forEach(field => {
                 const registerAttempt = {
-                    user_name: 'test user_name',
+                    username: 'test username',
                     password: 'test password'
                 }
 
@@ -53,7 +53,7 @@ describe ('User Endpoints', function() {
 
             it ('Responds 400 when password is less than 8 characters', () => {
                 const shortPassword = {
-                    user_name: 'test user_name',
+                    username: 'test username',
                     password: '1234567'
                 }
 
@@ -65,7 +65,7 @@ describe ('User Endpoints', function() {
 
             it ('Responds 400 when password is less than 72', () => {
                 const longPassword = {
-                    user_name: 'test user_name',
+                    username: 'test username',
                     password: '*'.repeat(73)
                 }
 
@@ -77,7 +77,7 @@ describe ('User Endpoints', function() {
 
             it ('Responds 400 when password begins with a space', () => {
                 const spacePassword = {
-                    user_name: 'test user_name', 
+                    username: 'test username', 
                     password: ' 123ses4meStreet!'
                 }
 
@@ -89,7 +89,7 @@ describe ('User Endpoints', function() {
 
             it ('Responds 400 when password ends with a space', () => {
                 const spacePassword = {
-                    user_name: 'test user_name', 
+                    username: 'test username', 
                     password: '123ses4meStreet! '
                 }
 
@@ -101,7 +101,7 @@ describe ('User Endpoints', function() {
 
             it ('Responds 400 when password is not complex enough', () => {
                 const basicPassword = {
-                    user_name: 'test user_name',
+                    username: 'test username',
                     password: '11AAaabb'
                 }
 
@@ -111,9 +111,9 @@ describe ('User Endpoints', function() {
                     .expect(400, {error: `Password must contain 1 upper case letter, lower case letter, number, and special character.`})
             })
 
-            it (`Responds 400 'User name already taken' when user_name isn't unique`, () => {
+            it (`Responds 400 'User name already taken' when username isn't unique`, () => {
                 const duplicateUser = {
-                    user_name: testUser.user_name,
+                    username: testUser.username,
                     password: '11AAaa!!'
                 }
 
@@ -128,7 +128,7 @@ describe ('User Endpoints', function() {
     describe ('Successful user POST request', () => {
         it ('Responds 201, serializes user, and stores bcrypted password', () => {
             const newUser = {
-                user_name: 'test user_name',
+                username: 'test username',
                 password: '11AAaa!!'
             }
 
@@ -138,7 +138,7 @@ describe ('User Endpoints', function() {
                 .expect(201)
                 .expect(res => {
                     expect(res.body).to.have.property('id')
-                    expect(res.body.user_name).to.eql(newUser.user_name)
+                    expect(res.body.username).to.eql(newUser.username)
                     expect(res.body).to.not.have.property('password')
                     expect(res.headers.location).to.eql(`/api/users/${res.body.id}`)
 
@@ -154,7 +154,7 @@ describe ('User Endpoints', function() {
                         .where({id: res.body.id})
                         .first()
                         .then(row => {
-                            expect(row.user_name).to.eql(newUser.user_name)
+                            expect(row.username).to.eql(newUser.username)
 
                             const expectedDate = new Date().toLocaleString('en', {timezone: 'UTC'});
                             const actualDate = new Date(res.body.date_created).toLocaleString();
