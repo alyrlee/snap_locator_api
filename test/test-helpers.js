@@ -3,16 +3,17 @@ function makeUsersArray() {
       {
         id: 1,
         username: 'DemoUser2020',
-        password: 'DemoUserSnap1234!',
+        password: 'DemoUserSnap*',
+        password: 'password',
+        date_created: new Date('2029-01-22T16:28:32.615Z'),
       },
     ]
 } 
 function makeStoresArray () {
     return [
-  { 
+    { 
       "ObjectId": 1,"Store_Name": "DOLLARTREE 8500", "Address": "978 SE Broad St","Address_Line__2": null, "City": "Metter", "State": "GA",  "Zip5": "30439", "Zip4": "3933",  "County": "CANDLER",  "Longitude": -82.055046, "Latitude": 32.396797 
-    }, 
-              
+    },               
 {
      "ObjectId": 2,"Store_Name": "Mercado's Meat Market No", "Address": "560 N Tehama St","Address_Line__2": null, "City": "Willows", "State": "CA",  "Zip5": "95988", "Zip4": "2533",  "County": "GLENN", "Longitude": -122.19395, "Latitude": 39.526478
      }, 
@@ -42,7 +43,20 @@ function makeStoresArray () {
     ]
 }
 
+function makeUserSavedLocationsArray (users, userSavedLocations) {
+  return [
+  {
+    id: 1,
+    ObjectId: Object[0].Id,
+    user_id: users[0].id,
+    userSavedLocations: Store_Name,
+    date_created: new Date('2029-01-22T16:28:32.615Z'),
+  },
+ ]
+}
+ 
 module.exports = {
     makeUsersArray,
-    makeStoresArray
+    makeStoresArray,
+    makeUserSavedLocationsArray
 }
