@@ -1,6 +1,6 @@
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
-  user_name TEXT NOT NULL UNIQUE,
+  userName TEXT NOT NULL UNIQUE,
   full_name TEXT NOT NULL,
   password TEXT NOT NULL,
   nickname TEXT,
@@ -8,6 +8,6 @@ CREATE TABLE users (
   date_modified TIMESTAMPTZ
 );
 
-ALTER TABLE user_saved_locations (
-  ADD COLUMN user_id INTEGER REFERENCES users(id) ON DELETE SET NULL
-);
+-- ALTER TABLE user_saved_locations 
+--   ADD COLUMN user_id INTEGER REFERENCES users(id) ON DELETE SET NULL
+-- ;
