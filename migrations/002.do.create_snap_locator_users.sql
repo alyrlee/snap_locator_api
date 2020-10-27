@@ -8,8 +8,6 @@ CREATE TABLE users (
   date_modified TIMESTAMPTZ
 );
 
-ALTER TABLE user_saved_locations
-  ADD COLUMN;
-    user_id INTEGER REFERENCES users(id)
-    ON DELETE SET NULL
-  ;
+ALTER TABLE user_saved_locations (
+  ADD COLUMN user_id INTEGER REFERENCES users(id) ON DELETE SET NULL
+);
