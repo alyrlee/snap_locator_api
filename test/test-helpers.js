@@ -49,7 +49,7 @@ function makeUserSavedLocationsArray (users, userSavedLocations) {
     id: 1,
     ObjectId: Object[0].Id,
     user_id: users[0].id,
-    userSavedLocations: Store_Name,
+    userSavedLocations: userSavedLocations,
     date_created: new Date('2029-01-22T16:28:32.615Z'),
   },
  ]
