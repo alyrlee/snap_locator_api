@@ -1,30 +1,34 @@
 const express = require('express');
+const AuthService  = require('../auth/auth-service')
+
 const path = require('path');
 const UsersService = require('./user-service');
-const { hashSync } = require('bcryptjs');
-
 const usersRouter = express.Router();
 const jsonBodyParser = express.json();
 
-usersRouter
-    .post('/', jsonBodyParser, (req, res, next) => {
-        const {password, userName} = req.body;
+//1. destructure the req.body
+//2. check if user exists 
+//3. Bycrypt the user password
+//4. enter the new user inside our database
+//5. generating jwt token 
 
+
+usersRouter
+    .post('/signup', jsonBodyParser, (req, res, next) => {
+        const {password, userName} = req.body;
         for (const field of ['userName', 'password']) {
             if (!req.body[field]) {
                 return res.status(400).json({error: `Missing '${field}' in request body.`});
             }
         }
-
         const passwordChecker = UsersService.validatePassword(password);
-
         if (passwordChecker) {
             return res.status(400).json({error: passwordChecker});
         }
 
         UsersService.hasDuplicateUser(
             req.app.get('db'),
-            username
+            userName
         )
             .then(hasDuplicateUser => {
                 if (hasDuplicateUser) {
@@ -32,8 +36,7 @@ usersRouter
                 }
                 
                 return UsersService.hashPassword(password)
-                    .then(hashedPassword => {
-                        
+                    .then(hashedPassword => {  
                         const newUser = {
                             userName,
                             password: hashedPassword,

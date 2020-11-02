@@ -4,8 +4,8 @@ CREATE TABLE user_saved_locations (
     date_created TIMESTAMP DEFAULT now() NOT NULL,
     ObjectId INTEGER
         REFERENCES snap_locations(ObjectId) 
-        ON DELETE CASCADE NOT NULL,
-    user_id INTEGER
-        REFERENCES users(id) 
         ON DELETE CASCADE NOT NULL
+    -- user_id INTEGER
+    --     REFERENCES users(user_id) 
+    --     ON DELETE CASCADE NOT NULL
 );

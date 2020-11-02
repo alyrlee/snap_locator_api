@@ -9,6 +9,8 @@ authRouter
     .post('/login', jsonBodyParser, (req, res, next) => {
         const {userName, password} = req.body;
         const loginCreds = {userName, password};
+        console.log('user creds', loginCreds);
+
 
         for (const [key, value] of Object.entries(loginCreds)) {
             if (value == null) {
@@ -41,5 +43,8 @@ authRouter
             })
             .catch(next);
     });
+    // post('/signup') {
+    // 
+    // }
 
 module.exports = authRouter;
