@@ -1,11 +1,10 @@
 require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
-// const { v4: uuidv4 } = require('uuid');
 const cors = require('cors');
 const helmet = require('helmet');
 const {NODE_ENV} = require('./config');
-const authRouter = require('./auth/auth-router');
+const authRouter = require('./middleware/auth-router');
 // const usersRouter = require('./users/users-router');
 const storesRouter = require('./snapLocations/store-locations-router');
 
@@ -17,7 +16,6 @@ const morganOption = (NODE_ENV === 'production')
 
 app.use(morgan(morganOption));
 app.use(helmet());
-// app.use(uuid());
 app.use(cors());
 
 app.get('/api', (req, res) => {

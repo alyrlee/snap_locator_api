@@ -42,7 +42,7 @@ authRouter
                     });
             })
             .catch(next);
-    });
+    }); 
     .post('/signup', jsonBodyParser, (req, res, next) => {
         const {password, userName} = req.body;
         for (const field of ['userName', 'password']) {
@@ -55,7 +55,7 @@ authRouter
             return res.status(400).json({error: passwordChecker});
         }
 
-        UsersService.hasDuplicateUser(
+        AuthService.hasDuplicateUser(
             req.app.get('db'),
             userName
         )
@@ -64,7 +64,7 @@ authRouter
                     return res.status(400).json({error: `Username already taken.`});
                 }
                 
-                return UsersService.hashPassword(password)
+                return AuthService.hashPassword(password)
                     .then(hashedPassword => {  
                         const newUser = {
                             userName,
@@ -72,7 +72,7 @@ authRouter
                             date_created: 'now()'
                         };
 
-                        return UsersService.insertNewUser(
+                        return AuthService.insertNewUser(
                             req.app.get('db'),
                             newUser
                         )
