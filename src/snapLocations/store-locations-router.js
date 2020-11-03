@@ -3,7 +3,7 @@ const xss = require('xss');
 const jsonParser = express.json();
 const path = require('path');
 const storeLocationsService = require('./store-locations-service');
-const {requireAuth} = require('../middleware/jwt-auth');
+const {requireAuth} = require('../utils/jwt-auth');
 
 const storeLocationsRouter = express.Router();
 
