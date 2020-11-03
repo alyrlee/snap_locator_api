@@ -12,7 +12,6 @@ const storeLocationsService = {
             .from('snap_locations')
             .select('*')
             .where(
-                {ObjectId: ObjectId},
             )
                  .first(); 
   },  

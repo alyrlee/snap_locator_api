@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
 
+
 const AuthService = {
     hasDuplicateUser(db, userName) {
         return db('users')
@@ -39,37 +40,36 @@ const AuthService = {
     serializeUser(user) {
         return {
             id: user.id,
-            username: xss(user.userName),
+            userName: xss(user.userName),
             date_created: new Date(user.date_created)
         };
-    }
+    },
+    getRegisteredUser(db, userName) {
+        return db('users')
+            .where({userName})
+            .first();
+    }, 
+    comparePasswords(password, hash) {
+        return bcrypt.compare(password, hash);
+    },
+    createJwt(subject, payload) {
+        return jwt.sign(payload, config.JWT_SECRET, {
+            subject,
+            expiresIn: config.JWT_EXPIRY,
+            algorithm: 'HS256',
+        });
+    },
+    verifyJwt(token) {
+        return jwt.verify(token, config.JWT_SECRET, {
+            algorithms: ['HS256'],
+        });
+    },
+    parseBasicToken(token) {
+        return Buffer
+            .from(token, 'base64')
+            .toString()
+            .split(':');
+    },
 };
-//     getRegisteredUser(db, userName) {
-//         return db('users')
-//             .where({userName})
-//             .first();
-//     },
-//     comparePasswords(password, hash) {
-//         return bcrypt.compare(password, hash);
-//     },
-//     createJwt(subject, payload) {
-//         return jwt.sign(payload, config.JWT_SECRET, {
-//             subject,
-//             expiresIn: config.JWT_EXPIRY,
-//             algorithm: 'HS256',
-//         });
-//     },
-//     verifyJwt(token) {
-//         return jwt.verify(token, config.JWT_SECRET, {
-//             algorithms: ['HS256'],
-//         });
-//     },
-//     parseBasicToken(token) {
-//         return Buffer
-//             .from(token, 'base64')
-//             .toString()
-//             .split(':');
-//     },
-// };
 
 module.exports = AuthService;

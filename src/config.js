@@ -1,5 +1,5 @@
 module.exports = {
-    PORT: 8008,
+    PORT: process.env.PORT || 8008,
     NODE_ENV: process.env.NODE_ENV || 'development',
     API_ENDPOINT: 'http://localhost:8008/api',
     DATABASE_URL: process.env.DATABASE_URL ||'postgresql://ashley@localhost/snap_locator',

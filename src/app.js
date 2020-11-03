@@ -31,6 +31,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/stores', storesRouter); 
 
 
+
 app.use(function errorHandler(error, req, res, next) {
     let response;
 
