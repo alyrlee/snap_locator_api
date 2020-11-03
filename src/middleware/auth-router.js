@@ -42,7 +42,7 @@ authRouter
                     });
             })
             .catch(next);
-    }); 
+    })
     .post('/signup', jsonBodyParser, (req, res, next) => {
         const {password, userName} = req.body;
         for (const field of ['userName', 'password']) {
@@ -50,7 +50,7 @@ authRouter
                 return res.status(400).json({error: `Missing '${field}' in request body.`});
             }
         }
-        const passwordChecker = UsersService.validatePassword(password);
+        const passwordChecker = AuthService.validatePassword(password);
         if (passwordChecker) {
             return res.status(400).json({error: passwordChecker});
         }
@@ -80,7 +80,7 @@ authRouter
                             res
                                 .status(201)
                                 .location(path.posix.join(req.originalUrl, `/${user.id}`))
-                                .json(UsersService.serializeUser(user));
+                                .json(AuthService.serializeUser(user));
                         })
                     });
             })

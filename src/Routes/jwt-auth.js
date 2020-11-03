@@ -1,15 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const AuthService = require('../auth/auth-service');
 const pool = require('./db');
 const jwtGenerator = require('../utils/jwtGenerator');
-const authRouter = require('../middleware/auth-router');
-const AuthService = require('../middleware/auth-service');
+// const authRouter = require('../middleware/auth-router');
+// const AuthService = require('../middleware/auth-service');
 
 //authorizeentication
 
-router.post("/register", validInfo, async (req, res) => {
+router.post("/register", loginCreds, async (req, res) => {
     const { userName, password } = req.body;
   
     try {

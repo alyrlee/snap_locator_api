@@ -3,7 +3,7 @@ const xss = require('xss');
 const jsonParser = express.json();
 const path = require('path');
 const storeLocationsService = require('./store-locations-service');
-const {requireAuth} = require('../utils/jwt-auth');
+const {jwtGenerator} = require('../utils/jwtGenerator');
 
 const storeLocationsRouter = express.Router();
 
@@ -17,7 +17,7 @@ const serializeSnapLocationsList = Store_Name => ({
 
 storeLocationsRouter
   .route('/')
-  .all(requireAuth)
+  // .all(jwtGenerator)
   .get((req, res, next) => {
     const knexInstance = req.app.get('db')
     storeLocationsService.getSnapLocations(knexInstance)
