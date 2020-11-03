@@ -2,7 +2,7 @@ BEGIN;
 
 TRUNCATE TABLE users;
 
-INSERT INTO users (full_name, userName, eamil, password) 
+INSERT INTO users (full_name, userName, email, password) 
 VALUES
   ('Demo User', 'Demo User','demo@gmail.com','$2a$04$iRkAgxuV6nvP4vKvw18kTOCoVOOw2jIkSwm.F9oRQfIPHckV8bvUe'),
   ('Dee Deboop','Dee Deboop','dee.de@gmail.com','$2a$04$ledKZ4NamXKGHMsBa7ta8uHwWfb6KKQmOS0QpIA2dp0XMkfCPLtIO'),
