@@ -9,11 +9,11 @@
 // //authorizeentication
 
 // router.post("/register", loginCreds, async (req, res) => {
-//     const { userName, password } = req.body;
+//     const { username, password } = req.body;
   
 //     try {
-//       const user = await pool.query("SELECT * FROM users WHERE userName = $1", [
-//         userName
+//       const user = await pool.query("SELECT * FROM users WHERE username = $1", [
+//         username
 //       ]);
   
 //       if (user.rows.length > 0) {
@@ -24,8 +24,8 @@
 //       const bcryptPassword = await bcrypt.hash(password, salt);
   
 //       let newUser = await pool.query(
-//         "INSERT INTO users (userName, email, password) VALUES ($1, $2, $3) RETURNING *",
-//         [userName, email, bcryptPassword]
+//         "INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *",
+//         [username, email, bcryptPassword]
 //       );
   
 //       const jwtToken = jwtGenerator(newUser.rows[0].user_id);
@@ -38,11 +38,11 @@
 //   });
   
 //   router.post("/login", validInfo, async (req, res) => {
-//     const { userName, password } = req.body;
+//     const { username, password } = req.body;
   
 //     try {
-//       const user = await pool.query("SELECT * FROM users WHERE userName = $1", [
-//         userName
+//       const user = await pool.query("SELECT * FROM users WHERE username = $1", [
+//         username
 //       ]);
   
 //       if (user.rows.length === 0) {

@@ -4,9 +4,9 @@
 
 // // service object to handle db queries to POST and authenticate new user registrations to the user database. //
 // const UsersService = {
-// //     hasDuplicateUser(db, userName) {
+// //     hasDuplicateUser(db, username) {
 // //         return db('users')
-// //             .where({userName}
+// //             .where({username}
 // //             .first()
 // //             .then(([user]) => !!user));
 // //     },
@@ -38,7 +38,7 @@
 // //     serializeUser(user) {
 // //         return {
 // //             id: user.id,
-// //             username: xss(user.userName),
+// //             username: xss(user.username),
 // //             date_created: new Date(user.date_created)
 // //         };
 // //     }

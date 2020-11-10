@@ -29,6 +29,7 @@ app.use(function(req, res, next) {
     
 app.use('/api/auth', authRouter);
 app.use('/api/stores', storesRouter); 
+//add in profile route (where users have saved store info)
 
 
 

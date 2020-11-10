@@ -6,9 +6,9 @@ const config = require('../config');
 
 
 const AuthService = {
-    hasDuplicateUser(db, userName) {
+    hasDuplicateUser(db, username) {
         return db('users')
-            .where({userName}
+            .where({username}
             .first()
             .then(([user]) => !!user));
     },
@@ -40,13 +40,15 @@ const AuthService = {
     serializeUser(user) {
         return {
             id: user.id,
-            userName: xss(user.userName),
+            username: xss(user.username),
             date_created: new Date(user.date_created)
         };
     },
-    getRegisteredUser(db, userName) {
-        return db('users')
-            .where({userName})
+    getRegisteredUser(db, username) {
+        console.log('this db', db);
+        // return db.raw(`SELECT * from users where username=${username};`)
+        return db("users")
+            .where({username})
             .first();
     }, 
     comparePasswords(password, hash) {
