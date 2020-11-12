@@ -3,12 +3,28 @@
 module.exports = {
 
   development: {
-    client: 'sqlite3',
-    connection: {
-      filename: './dev.sqlite3'
-    }
+    client: 'pg',
+    connection:'postgresql://ashley@localhost/snap_locator',
+    migrations: {
+      directory: './db/migrations'
+    },
+    seeds: {
+      directory: './db/seeds/dev'
+    },
+    useNullAsDefault: true
   },
 
+  test: {
+    client: 'pg',
+    connection:'postgresql://ashley@localhost/snap_locator_auth_test',
+    migrations: {
+      directory: './db/migrations'
+    },
+    seeds: {
+      directory: './db/seeds/test'
+    },
+    useNullAsDefault: true
+  },
   staging: {
     client: 'postgresql',
     connection: {

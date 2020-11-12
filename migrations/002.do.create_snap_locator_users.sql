@@ -1,5 +1,5 @@
 CREATE TABLE users (
-  user_id uuid DEFAULT uuid_generate_v4(),
+  user_id uuid DEFAULT uuid_generate_v4() NOT NULL,
   username TEXT NOT NULL UNIQUE,
   full_name TEXT NOT NULL,
   email TEXT NOT NULL, 

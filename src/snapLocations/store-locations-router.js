@@ -3,7 +3,6 @@ const xss = require('xss');
 const jsonParser = express.json();
 const path = require('path');
 const storeLocationsService = require('./store-locations-service');
-const {jwtGenerator} = require('../utils/jwtGenerator');
 
 const storeLocationsRouter = express.Router();
 
