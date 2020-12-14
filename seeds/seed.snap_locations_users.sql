@@ -1,6 +1,6 @@
 BEGIN;
 
--- TRUNCATE TABLE snap_app_users;l
+-- TRUNCATE TABLE snap_app_users;
 
 INSERT INTO snap_app_users (full_name, user_name, email, password) 
 VALUES
