@@ -16,7 +16,6 @@ const serializeSnapLocationsList = Store_Name => ({
 
 storeLocationsRouter
   .route('/')
-  // .all(jwtGenerator)
   .get((req, res, next) => {
     const knexInstance = req.app.get('db')
     storeLocationsService.getSnapLocations(knexInstance)

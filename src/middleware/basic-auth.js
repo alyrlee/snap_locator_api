@@ -1,6 +1,5 @@
 const AuthService = require('../auth/auth-service');
 
-// middleware to handle basic login authentication on the server. //
 function requireAuth(req, res, next) {
     const authToken = req.get('Authorization') || '';
 

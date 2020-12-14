@@ -84,13 +84,13 @@ describe ('Stores Endpoints', function() {
                             .expect(401, {error: `Unauthorized request`})
                     })
 
-                //     it ('Responds with 401 `Unauthorized request` when invalid sub in payload', () => {
-                //         const invalidUser = {username: 'fake-user', id: 1}
+                    it ('Responds with 401 `Unauthorized request` when invalid sub in payload', () => {
+                        const invalidUser = {username: 'fake-user', id: 1}
 
-                //         return endpoint.method(endpoint.path)
-                //             .set('Authorization', helpers.makeAuthHeader(invalidUser))
-                //             .expect(401, {error: `Unauthorized request`})
-                //     })
+                        return endpoint.method(endpoint.path)
+                            .set('Authorization', helpers.makeAuthHeader(invalidUser))
+                            .expect(401, {error: `Unauthorized request`})
+                    })
                 })
             })
         })

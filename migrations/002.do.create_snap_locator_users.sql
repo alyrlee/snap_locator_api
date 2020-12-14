@@ -1,6 +1,6 @@
-CREATE TABLE users (
+CREATE TABLE snap_app_users (
   user_id uuid DEFAULT uuid_generate_v4() NOT NULL,
-  username TEXT NOT NULL UNIQUE,
+  user_name TEXT NOT NULL UNIQUE,
   full_name TEXT NOT NULL,
   email TEXT NOT NULL, 
   password TEXT NOT NULL,
@@ -10,6 +10,6 @@ CREATE TABLE users (
   date_modified TIMESTAMPTZ
 );
 
--- ALTER TABLE user_saved_locations 
---   ADD COLUMN user_id INTEGER REFERENCES users(id) ON DELETE SET NULL
--- ;
+ALTER TABLE user_saved_locations 
+  ADD COLUMN user_id INTEGER REFERENCES user_id(id) ON DELETE SET NULL
+;

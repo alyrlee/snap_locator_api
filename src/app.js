@@ -4,8 +4,8 @@ const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 const {NODE_ENV} = require('./config');
-const authRouter = require('./middleware/auth-router');
-const storesRouter = require('./snapLocations/store-locations-router');
+const authRouter = require('./auth/auth-router');
+// const storesRouter = require('./snapLocations/store-locations-router');
 
 const app = express();
 

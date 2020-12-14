@@ -5,7 +5,7 @@ function makeUsersArray() {
     return [
       {
         id: 1,
-        username: 'DemoUser2020',
+        user_name: 'DemoUser2020',
         password: 'DemoUserSnap*',
         password: 'password',
         date_created: new Date('2029-01-22T16:28:32.615Z'),
@@ -57,9 +57,31 @@ function makeUserSavedLocationsArray (users, userSavedLocations) {
   },
  ]
 }
+
+function seedUsers(db, users) {
+  const preppedUsers = users.map(user => ({
+    ...user,
+    password: bcrypt.hashSync(user.password, 1)
+  }))
+  return db.into('snap_users').insert(preppedUsers)
+    .then(() =>
+      // update the auto sequence to stay in sync
+      db.raw(
+        `SELECT setval('snap_users_id_seq', ?)`,
+        [users[users.length - 1].id],
+      )
+    )
+}
+
+function makeAuthHeader(user) {
+  const token = Buffer.from(`${user.user_name}:${user.password}`).toString('base64')
+  return `Basic ${token}`
+}
  
 module.exports = {
     makeUsersArray,
     makeStoresArray,
-    makeUserSavedLocationsArray
+    makeUserSavedLocationsArray,
+    makeAuthHeader,
+    seedUsers,
 }
