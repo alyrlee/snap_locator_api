@@ -9,3 +9,7 @@ CREATE TABLE user_saved_locations (
         REFERENCES snap_app_users(user_id) 
         ON DELETE CASCADE NOT NULL
 );
+
+ALTER TABLE user_saved_locations 
+  ADD COLUMN user_id INTEGER REFERENCES user_id(id) ON DELETE SET NULL
+;
