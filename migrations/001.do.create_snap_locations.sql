@@ -12,7 +12,7 @@ CREATE TABLE snap_locations (
     County TEXT,
     Longitude NUMERIC(10,7),
     Latitude NUMERIC(10,7),
-    date_created TIMESTAMPTZ DEFAULT now() NOT NULL
+    date_created TIMESTAMPTZ DEFAULT now() 
 );
 
 CREATE TABLE snap_app_users (
