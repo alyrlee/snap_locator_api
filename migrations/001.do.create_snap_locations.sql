@@ -29,7 +29,7 @@ CREATE TABLE snap_app_users (
 
 CREATE TABLE user_saved_locations (
     id INTEGER PRIMARY KEY,
-    text TEXT NOT NULL,
+    -- text TEXT,
     date_created TIMESTAMP DEFAULT now() NOT NULL,
     ObjectId INTEGER
         REFERENCES snap_locations(ObjectId) 
