@@ -1,13 +1,10 @@
 const xss = require('xss');
 
 const ProfileService = {
-    getAllUserProfiles(knex, user_id, user_name ) {
+    getAllUserProfiles(knex) {
         return knex
             .from('snap_app_users')
             .select('*') 
-            .where(
-                {user_id: user_id},
-                {user_name: user_name})
     }, 
    getProfileId(knex, user_id ) {
         return knex
