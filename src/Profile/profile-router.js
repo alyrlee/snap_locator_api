@@ -1,43 +1,45 @@
 const express = require('express');
 const jsonParser = express.json();
 const path = require('path');
+const profileService = require('./profile-locations-services');
 
 profileRouter = express.Router()
 
 profileRouter
 .route('/')
   .get((req, res, next) => {
-    ProfileService.getAllUserProfiles(req.app.get('db'))
-      .then(articles => {
-        res.json(articles.map(ProfileService.serializeUserProfile))
+    profileService.getAllUserProfiles(req.app.get('db'))
+      .then(user_name => {
+        res.json(user_name.map(profileService.serializeUserProfile))
       })
       .catch(next)
-  })
-
-profileRouter
-  .route('/:article_id')
-  .all(checkProfileExists)
-  .get((req, res) => {
-    res.json(ArticlesService.serializeUserProfile(res.profile))
   })
 
 profileRouter.route('/:user_id/')
   .all(checkProfileExists)
   .get((req, res, next) => {
-    ProfileService.getUserProfile(
+    profileService.getAllUserProfiles(
       req.app.get('db'),
       req.params.user_id
     )
       .then(profile => {
-        res.json(profile.map(ProfileService.serializeUserProfile))
+        res.json(profile.map(profileService.serializeUserProfile))
       })
       .catch(next)
   })
 
-/* async/await syntax for promises */
+  // .route('/')
+  .get((req, res, next) => {
+    profileService.getUserSavedLocations(req.app.get('db'))
+      .then(user_saved_locations => {
+        res.json(user_saved_locations.map(profileService.serializeUserProfile))
+      })
+      .catch(next)
+  })
+
 async function checkProfileExists(req, res, next) {
   try {
-    const profile = await ProfileService.getById(
+    const profile = await profileService.getAllUserProfiles(
       req.app.get('db'),
       req.params.user_id
     )

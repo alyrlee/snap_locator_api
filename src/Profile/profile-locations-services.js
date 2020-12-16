@@ -1,43 +1,25 @@
 const xss = require('xss');
 
-const ProfileService = {
+const profileService = {
     getAllUserProfiles(knex) {
         return knex
             .from('snap_app_users')
             .select('*') 
     }, 
-   getProfileId(knex, user_id ) {
+    getUserSavedLocations(knex, user_saved_locations) {
         return knex
-        .from('snap_app_users')            
+        .from('user_saved_locations')
         .select('*')
-            .where({user_id: user_id})
-                 .first(); 
-  },  
-  insertNewUser(knex, newUser) {
-         return knex
-            .insert(newUser)
-            .from('snap_app_users')
-            .returning('*')
-            .then(rows => {
-                return rows[0]
-            });
-  },         
-  deleteUserName(knex,user_name){
-        return knex ('user_name')
-            .where('user_name', user_name)
-            .delete();
-  },
-  updateUserName(knex, user_name) {
-        return knex ('user_name')
-            .where('user_name', user_name)
-            .update();
-  },
+            .where({user_saved_locations: user_saved_locations})
+    },
+
 serializeUserProfile(user_name) {
     const { user } = user_name
     return {
-        user_id: xss(user_id),
-        user_name: xss(user_name),
-        date_created: new Date(snap_app_users.date_created),
+        id: user_saved_locations.id,
+        user_id: snap_app_users.id,
+        text: xss(user_saved_locations.text),
+        date_created: new Date(user_saved_locations.date_created),
         user: {
             id: user.id,
             user_name: user.user_name,
@@ -50,4 +32,4 @@ serializeUserProfile(user_name) {
   },
 }
 
-module.exports = storeLocationsService;
+module.exports = profileService;
