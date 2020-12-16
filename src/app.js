@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const {NODE_ENV} = require('./config');
 const authRouter = require('./auth/auth-router');
 const storesRouter = require('./snapLocations/store-locations-router');
+const profileRouter = require('./Profile/profile-router');
 
 const app = express();
 
@@ -29,7 +30,7 @@ app.use(function(req, res, next) {
     
 app.use('/api/auth', authRouter);
 app.use('/api/stores', storesRouter); 
-//add in profile route (where users have saved store info)
+app.use('/api/profile', profileRouter);
 
 
 
