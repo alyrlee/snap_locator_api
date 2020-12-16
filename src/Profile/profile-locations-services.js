@@ -13,7 +13,7 @@ const ProfileService = {
             .where({user_id: user_id})
                  .first(); 
   },  
-  insertSnapLocations(knex, newUser) {
+  insertNewUser(knex, newUser) {
          return knex
             .insert(newUser)
             .from('snap_app_users')

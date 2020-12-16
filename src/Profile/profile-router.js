@@ -1,5 +1,4 @@
 const express = require('express');
-const xss = require('xss');
 const jsonParser = express.json();
 const path = require('path');
 
@@ -15,14 +14,14 @@ profileRouter
       .catch(next)
   })
 
-articlesRouter
+profileRouter
   .route('/:article_id')
   .all(checkProfileExists)
   .get((req, res) => {
     res.json(ArticlesService.serializeUserProfile(res.profile))
   })
 
-articlesRouter.route('/:user_id/')
+profileRouter.route('/:user_id/')
   .all(checkProfileExists)
   .get((req, res, next) => {
     ProfileService.getUserProfile(
@@ -56,12 +55,3 @@ async function checkProfileExists(req, res, next) {
 }
 
 module.exports = profileRouter
-
-
-
-
-
-
-
-
-
