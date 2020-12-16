@@ -2,7 +2,7 @@ const express = require('express');
 const xss = require('xss');
 const jsonParser = express.json();
 const path = require('path');
-const userSavedLocationsService = require('./user-saved-locations-service');
+const userSavedLocationsService = require('./user-saved-locations-services');
 
 const userSavedLocationsRouter = express.Router();
 
