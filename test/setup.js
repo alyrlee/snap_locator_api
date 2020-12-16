@@ -5,7 +5,7 @@ process.env.JWT_SECRET = 'test-jwt-secret'
 require('dotenv').config()
 
 process.env.TEST_DB_URL = process.env.TEST_DB_URL
-  || 'postgresql://ashley@localhost/snap_locator_auth_test'
+  || 'postgresql://ashley_dev@localhost/snap_app_auth_test'
 
 const { expect } = require('chai')
 const supertest = require('supertest')

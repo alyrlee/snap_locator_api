@@ -1,11 +1,9 @@
 const storeLocationsService = {
-    getSnapLocations(knex, ObjectId, Store_Name ) {
+    getSnapLocations(knex) {
         return knex
             .from('snap_locations')
             .select('*') 
-            .where(
-                {ObjectId: ObjectId},
-                {Store_Name: Store_Name})
+            
     }, 
    getSnapLocationsById(knex, ObjectId ) {
         return knex
