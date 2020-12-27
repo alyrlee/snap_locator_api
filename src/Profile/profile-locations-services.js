@@ -16,7 +16,7 @@ const profileService = {
 serializeUserProfile(user_name) {
     const { user } = user_name
     return {
-        id: user_saved_locations.id,
+        id: snap_app_users.id,
         user_id: snap_app_users.id,
         text: xss(user_saved_locations.text),
         date_created: new Date(user_saved_locations.date_created),
