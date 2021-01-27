@@ -23,25 +23,48 @@ authRouter
       .then(dbUser => {
         if (!dbUser)
           return res.status(400).json({
-            error: 'Incorrect user_name or password',
+            error: 'Incorrect user_name',
           })
 
-        return AuthService.verifyJwt(token, config.JWT_SECRET)
-          .then(compareToken => {
-            console.log('token here',token)
-            if (!compareToken)
-              return res.status(400).json({
-                error: 'Incorrect token',
-              })
+//compare password
+//create JWT here 
+//double check on const sub 
+//console.log(dbUser) & request
+//request.pw
+//js string comparison 
 
-            const sub = dbUser.user_name
-            const payload = { user_id: dbUser.id }
-            res.send({
+// const isLoggedIn = AuthService.comparePasswords(password, dbUser.hash)
+//   if(!isLoggedIn) 
+//     return res.status(400).json({
+//       error: 'Incorrect password',
+//     }) 
+console.log('db user', dbUser);
+console.log('pw', password);
+
+return AuthService.comparePasswords(password,user_name)
+         .then(compareMatch => {
+           if (!compareMatch)
+            return res.status(400).json({
+               error: 'Incorrect password',
+            })     
+              
+// if string 1 === string 2
+
+const passwordMatch = (password, user_name)
+         .then(passwordMatch => {
+           if (!passwordMatch)
+            return res.status(400).json({
+               error: 'Incorrect password match',
+            })       
+    const sub = dbUser.user_name
+    const payload = { user_id: dbUser.id }
+        res.send({
               authToken: AuthService.createJwt(sub, payload),
             })
           })
       })
       .catch(next)
   })
-
+})
+  
 module.exports = authRouter
