@@ -6,12 +6,6 @@ const {hashPassword} = require('./auth-service');
 const authRouter = express.Router();
 const jsonBodyParser = express.json(); 
 
-// Login Router registrationRoutes.route(RouteNames.login).post(function(req, res) 
-// { Registration.findOne({ user_name: req.body.user_name }) 
-// .then(user => { console.log("User from login", user) if (!user) res.sendStatus(204); 
-// else { bcrypt.compare(req.body.password, user.password) .then(passwordMatch => passwordMatch ? res.sendStatus(200) 
-// : res.sendStatus(204)) } }); });
-
 authRouter
     .post('/login', jsonBodyParser, (req, res, next) => {
         const { user_name, password } = req.body;
@@ -46,13 +40,17 @@ const isLoggedIn = AuthService.hashPassword(password)
 console.log('db user', dbUser);
 console.log('pw', password);
 
-return AuthService.comparePasswords(password,hash)
+//var passwordHash = require('./lib/password-hash'); var hashedPassword = 'sha1$3I7HRwy7$cbfdac6008f9cab4083784cbd1874f76618d2a97'; 
+//console.log(passwordHash.verify('password123', hashedPassword)); // true console.log(passwordHash.verify('Password0', hashedPassword)); // false
+const hash = '';
+return AuthService.comparePasswords
+(password,hash)
          .then(password => {
-           if (!password === password)
+           if (!password)
             return res.status(400).json({
                error: 'Incorrect password',
-            })       
-               
+            })  
+                               
 // if string 1 === string 2
 const passwordMatch = (password, user_name)
          .then(passwordMatch => {
