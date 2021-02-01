@@ -34,8 +34,6 @@ app.use('/api/stores', storesRouter);
 app.use('/api/profile', profileRouter);
 app.use('/api/savedLocations', userSavedLocationsRouter);
 
-
-
 app.use(function errorHandler(error, req, res, next) {
     let response;
 

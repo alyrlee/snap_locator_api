@@ -26,28 +26,21 @@ authRouter
             error: 'Incorrect user_name',
           })
 
-//compare password
-//create JWT here 
-//double check on const sub 
-//console.log(dbUser) & request
-//request.pw
-//js string comparison 
-
-// const isLoggedIn = AuthService.comparePasswords(password, dbUser.hash)
-//   if(!isLoggedIn) 
-//     return res.status(400).json({
-//       error: 'Incorrect password',
-//     }) 
+const isLoggedIn = AuthService.comparePasswords(password, user_name)
+  if(!isLoggedIn) 
+    return res.status(400).json({
+      error: 'Incorrect hash',
+    }) 
 console.log('db user', dbUser);
 console.log('pw', password);
 
-return AuthService.comparePasswords(password,user_name)
-         .then(compareMatch => {
-           if (!compareMatch)
+return AuthService.comparePasswords(password)
+         .then(password => {
+           if (!password === password)
             return res.status(400).json({
                error: 'Incorrect password',
             })     
-              
+               
 // if string 1 === string 2
 
 const passwordMatch = (password, user_name)
