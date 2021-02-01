@@ -1,6 +1,7 @@
 const express = require('express');
 const AuthService = require('./auth-service');
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcryptjs');
+const {hashPassword} = require('./auth-service');
 
 const authRouter = express.Router();
 const jsonBodyParser = express.json(); 
@@ -36,7 +37,8 @@ authRouter
         //     error: 'Incorrect user_name',
         //   })
 
-const isLoggedIn = AuthService.comparePasswords(password, hash)
+const isLoggedIn = AuthService.hashPassword(password)
+.then(password => {
   if(!isLoggedIn) 
     return res.status(400).json({
       error: 'Incorrect hash',
@@ -49,7 +51,7 @@ return AuthService.comparePasswords(password)
            if (!password === password)
             return res.status(400).json({
                error: 'Incorrect password',
-            })     
+            })       
                
 // if string 1 === string 2
 const passwordMatch = (password, user_name)
@@ -67,6 +69,8 @@ const passwordMatch = (password, user_name)
       })
       .catch(next)
   })
+ })
 })
+
   
 module.exports = authRouter
