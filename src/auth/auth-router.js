@@ -1,5 +1,6 @@
 const express = require('express');
 const AuthService = require('./auth-service');
+const bcrypt = require('bcryptjs')
 
 const authRouter = express.Router();
 const jsonBodyParser = express.json(); 
@@ -28,7 +29,7 @@ authRouter
     )
       .then(dbUser => {
         if (!dbUser) res.sendStatus(204); 
-        else { bcrypt.compare(req.body.password, user.password) .then(passwordMatch => passwordMatch ? res.sendStatus(200) 
+        else { bcrypt.compare(req.body.password, dbUser.password) .then(passwordMatch => passwordMatch ? res.sendStatus(200) 
        : res.sendStatus(204)) } 
         // if (!dbUser)
         //   return res.status(400).json({
