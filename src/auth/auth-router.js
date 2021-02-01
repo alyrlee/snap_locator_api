@@ -46,7 +46,7 @@ const isLoggedIn = AuthService.hashPassword(password)
 console.log('db user', dbUser);
 console.log('pw', password);
 
-return AuthService.comparePasswords(password)
+return AuthService.comparePasswords(password,hash)
          .then(password => {
            if (!password === password)
             return res.status(400).json({
