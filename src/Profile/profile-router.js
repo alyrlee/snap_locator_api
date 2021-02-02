@@ -11,6 +11,7 @@ profileRouter
     profileService.getAllUserProfiles(req.app.get('db'))
       .then(user_name => {
         res.json(user_name.map(profileService.serializeUserProfile))
+        console.log('user name is:', user_name);
       })
       .catch(next)
   })
