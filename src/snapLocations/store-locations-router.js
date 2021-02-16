@@ -12,7 +12,9 @@ const serializeSnapLocationsList = Store_Name => ({
   address: xss(Store_Name.address),
   city: xss(Store_Name.city),
   state: xss(Store_Name.state),
-  zip5: Store_Name.zip5
+  zip5: Store_Name.zip5,
+  latitude: Store_Name.latitude,
+  longitude: Store_Name.longitude
 })
 
 storeLocationsRouter
