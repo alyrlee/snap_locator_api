@@ -1,3 +1,8 @@
+CREATE TYPE saved_category AS ENUM (
+  'Favorites',
+  'To Visit'
+);
+
 CREATE TABLE snap_locations (
     X NUMERIC(10,7),
     Y NUMERIC(10,7),
@@ -34,22 +39,11 @@ CREATE TABLE user_saved_locations (
     ObjectId INTEGER
         REFERENCES snap_locations(ObjectId) 
         ON DELETE CASCADE NOT NULL,
-    user_id uuid
+    user_id INTEGER 
         REFERENCES snap_app_users(user_id) 
-        ON DELETE CASCADE NOT NULL
+        ON DELETE CASCADE NOT NULL,
+    saved_location_category saved_category
 );
-
-ALTER TABLE user_saved_locations 
-  ADD COLUMN user_id INTEGER REFERENCES user_id(id) ON DELETE SET NULL
-;
-
-CREATE TYPE saved_category AS ENUM (
-  'Favorites',
-  'To Visit'
-);
-
-ALTER TABLE user_saved_locations
-  ADD COLUMN saved_location_category saved_category;
 
 CREATE TABLE snap_test (
     X NUMERIC(10,7),
