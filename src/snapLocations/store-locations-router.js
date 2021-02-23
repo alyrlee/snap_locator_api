@@ -38,6 +38,27 @@ storeLocationsRouter
       })
     }
 
+    storeLocationsRouter
+    .route('/cityState')
+    .get((req, res, next) => {
+      const knexInstance = req.app.get('db')
+      storeLocationsService.getSnapCityState(knexInstance)
+        .then(Store_Name => {
+          res.json(Store_Name.map(serializeSnapLocationsList))
+      })
+          .catch(next)
+  })
+  .post(jsonParser, (req, res, next) => {
+    const { city, state } = req.body
+    const newSnapLocation = { city, state }
+  
+    for (const [key, value] of Object.entries(newSnapLocation)) {
+      if (value == null) {
+        return res.status(400).json({
+          error: `Missing '${key}' in request body`
+        })
+      }
+
 storeLocationsService.insertSnapLocations(
   req.app.get('db'),
       newSnapLocation
