@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 const {NODE_ENV} = require('./config');
+// const contentType = require('content-type')
 const authRouter = require('./auth/auth-router');
 const usersRouter = require('./users/users-router');
 const storesRouter = require('./snapLocations/store-locations-router');
@@ -20,6 +21,8 @@ const morganOption = (NODE_ENV === 'production')
 app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors());
+// app.use(rateLimiterRedisMiddleware);
+
 
 app.get('/api', (req, res) => {
     res.send('Hello, welcome to SNAP Locator API')
@@ -30,7 +33,7 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
-    
+ 
 app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/stores', storesRouter); 
