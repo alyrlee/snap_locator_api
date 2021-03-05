@@ -13,6 +13,7 @@ const storeLocationsService = {
             .select('*') 
             .where(city, 'city')
             .where(state, 'state')
+            // .limit(50)
          
     }, 
    getSnapLocationsById(knex, ObjectId ) {
