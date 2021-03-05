@@ -44,7 +44,7 @@ storeLocationsRouter
   .route('/cityState')
   .get((req, res, next) => {
     const { city, state } = req.body;
-    console.log('we received city/state from front end??', city, state)
+    console.log('we received city/state from front end??', city, state) 
     const knexInstance = req.app.get('db')
     storeLocationsService.getSnapCityState(knexInstance)
         .then(city, state => {

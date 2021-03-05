@@ -4,7 +4,6 @@ const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 const {NODE_ENV} = require('./config');
-// const contentType = require('content-type')
 const authRouter = require('./auth/auth-router');
 const usersRouter = require('./users/users-router');
 const storesRouter = require('./snapLocations/store-locations-router');
@@ -21,7 +20,6 @@ const morganOption = (NODE_ENV === 'production')
 app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors());
-// app.use(rateLimiterRedisMiddleware);
 
 
 app.get('/api', (req, res) => {
