@@ -48,10 +48,10 @@ storeLocationsRouter
     console.log('we received city/state from front end??', city, state) 
     const knexInstance = req.app.get('db')
     storeLocationsService.getSnapCityState(knexInstance, city, state)
-        .then(locations => {
+        .then(city, state => {
           // this is how you organize your response back to the front end
-          console.log('~~~~this is the format will be sending back!\n~~~~', locations)
-          res.json({locations})
+          console.log('~~~~this is the format will be sending back!\n~~~~', city, state)
+          res.json({city, state})
           // res.json(city && state.map(serializeSnapLocationsList))
       })
           .catch(next)
