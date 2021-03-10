@@ -7,7 +7,7 @@ const storeLocationsService = require('./store-locations-service');
 const storeLocationsRouter = express.Router();
 
 const serializeSnapLocationsList = Store_Name => ({
-  ObjectId:Store_Name.ObjectId,
+  ObjectId: Store_Name.ObjectId,
   store_name: xss(Store_Name.Store_Name),
   address: xss(Store_Name.address),
   city: xss(Store_Name.city),
@@ -42,13 +42,17 @@ storeLocationsRouter
 
 storeLocationsRouter
   .route('/cityState')
-  .get((req, res, next) => {
+  .get(jsonParser, (req, res, next) => {
+    console.log("request is: ", req);
     const { city, state } = req.body;
     console.log('we received city/state from front end??', city, state) 
     const knexInstance = req.app.get('db')
-    storeLocationsService.getSnapCityState(knexInstance)
-        .then(city, state => {
-          res.json(city && state.map(serializeSnapLocationsList))
+    storeLocationsService.getSnapCityState(knexInstance, city, state)
+        .then(locations => {
+          // this is how you organize your response back to the front end
+          console.log('~~~~this is the format will be sending back!\n~~~~', locations)
+          res.json({locations})
+          // res.json(city && state.map(serializeSnapLocationsList))
       })
           .catch(next)
   })
@@ -64,18 +68,18 @@ storeLocationsRouter
         })
       }
 
-storeLocationsService.insertSnapLocations(
-  req.app.get('db'),
-      newSnapLocation
-    )
-        .then(Store_Name => {
-          res
-            .status(201)
-            .location(path.posix.join(req.originalUrl, `/${Store_Name.ObjectId}`))
-            .json(serializeSnapLocationsList(Store_Name))
-      })
-      .catch(next)
-  }
+      storeLocationsService.insertSnapLocations(
+        req.app.get('db'),
+            newSnapLocation
+          )
+              .then(Store_Name => {
+                res
+                  .status(201)
+                  .location(path.posix.join(req.originalUrl, `/${Store_Name.ObjectId}`))
+                  .json(serializeSnapLocationsList(Store_Name))
+            })
+            .catch(next)
+        }
 
 storesLocationsRouter
   .route('/stores')

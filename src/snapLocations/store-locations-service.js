@@ -2,20 +2,16 @@ const storeLocationsService = {
     getSnapLocations(knex) {
         return knex
             .select('*')    
-            .from('snap_locations')
-           
-            
+            .from('snap_locations') 
     }, 
     //return on front end to display as an array store_name, ObjectId,address, lat, log, city, state
     //assign markers with ObjectID, need X,Y as coordinates for marker coordinates
-    getSnapCityState(knex) {
+    getSnapCityState(knex, city, state) {
     return knex
             .select('*')    
             .from('snap_locations') 
-            .where(city, 'city')
-            .where(state, 'state')
-            // .limit(50)
-         
+            .where({City: city})
+            .where({State: state})
     }, 
    getSnapLocationsById(knex, ObjectId ) {
         return knex
