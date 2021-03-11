@@ -1,10 +1,10 @@
 const express = require("express");
 const xss = require("xss");
-const jsonParser = express.json();
 const path = require("path");
 const storeLocationsService = require("./store-locations-service");
 
 const storeLocationsRouter = express.Router();
+const jsonParser = express.json();
 
 const serializeSnapLocationsList = (Store_Name) => ({
   ObjectId: Store_Name.ObjectId,
@@ -58,7 +58,6 @@ storeLocationsRouter
           state
         );
         res.json({ city, state });
-        // res.json(city && state.map(serializeSnapLocationsList))
       })
       .catch(next);
   })
@@ -77,32 +76,13 @@ storeLocationsRouter
           state
         );
         res.json({ city, state });
-        // res.json(city && state.map(serializeSnapLocationsList))
+        // res.json(city && state.map(serializeSnapLocationsList));
       })
       .catch(next);
-    // const newSnapLocation = { city, state };
-
-    // for (const [key, value] of Object.entries(newSnapLocation)) {
-    //   if (value == null) {
-    //     return res.status(400).json({
-    //       error: `Missing '${key}' in request body`,
-    //     });
-    //   }
-    // }
   });
       
 
-  // storeLocationsService
-  //   .insertSnapLocations(req.app.get("db"), newSnapLocation)
-  //   .then((Store_Name) => {
-  //     res
-  //       .status(201)
-  //       .location(
-  //         path.posix.join(req.originalUrl, `/${Store_Name.ObjectId}`)
-  //       )
-  //       .json(serializeSnapLocationsList(Store_Name));
-  //   })
-  //   .catch(next);
+
 
   //   storeLocationsRouter
   //     .route("/stores")

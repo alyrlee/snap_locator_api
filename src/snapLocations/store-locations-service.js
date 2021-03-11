@@ -4,8 +4,6 @@ const storeLocationsService = {
             .select('*')    
             .from('snap_locations') 
     }, 
-    //return on front end to display as an array store_name, ObjectId,address, lat, log, city, state
-    //assign markers with ObjectID, need X,Y as coordinates for marker coordinates
     getSnapCityState(knex, city, state) {
     return knex
             .select('*')    
@@ -19,16 +17,7 @@ const storeLocationsService = {
             .from('snap_locations')
             .where({ObjectId: ObjectId})
                  .first(); 
-  },  
-  insertSnapLocations(knex, newSnapLocation) {
-         return knex
-            .insert(newSnapLocation)
-            .into('snap_locations')
-            .returning('*')
-            .then(rows => {
-                return rows[0]
-            });
-  },         
+  },     
   deleteSnapLocations(knex,Store_Name){
         return knex ('Store_Name')
             .where('Store_Name', Store_Name)
