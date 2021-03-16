@@ -8,8 +8,8 @@ const storeLocationsService = {
     return knex
             .select('*')    
             .from('snap_locations') 
-            .where({City: city})
-            .where({State: state})
+            .where({city: city})
+            .where({state: state})
     }, 
    getSnapLocationsById(knex, ObjectId ) {
         return knex

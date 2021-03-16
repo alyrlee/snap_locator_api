@@ -10,7 +10,6 @@ const storesRouter = require('./snapLocations/store-locations-router');
 const profileRouter = require('./Profile/profile-router');
 const userSavedLocationsRouter = require('./savedLocations/user-saved-locations-router');
 
-
 const app = express();
 
 const morganOption = (NODE_ENV === 'production')
@@ -20,7 +19,6 @@ const morganOption = (NODE_ENV === 'production')
 app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors());
-
 
 app.get('/api', (req, res) => {
     res.send('Hello, welcome to SNAP Locator API')
