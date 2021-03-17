@@ -11,6 +11,12 @@ const storeLocationsService = {
             .where({city: city})
             .where({state: state})
     }, 
+    getSnapLocationsByName(knex, Store_Name ) {
+        return knex
+            .select('*')    
+            .from('snap_locations')
+            .where({Store_Name: Store_Name})
+  },     
    getSnapLocationsById(knex, ObjectId ) {
         return knex
             .select('*')    
