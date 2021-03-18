@@ -30,11 +30,6 @@ const storeLocationsService = {
             .where('Store_Name', Store_Name)
             .delete();
   },
-//   updateSnapLocations(knex, Store_Name) {
-//         return knex ('Store_Name')
-//             .where('Store_Name', Store_Name)
-//             .update();
-//   },
 serializeStores(Store_Name) {
     const { user } = Store_Name
     return {

@@ -51,9 +51,8 @@ storeLocationsRouter
     storeLocationsService
       .getSnapCityState(knexInstance, city, state)
       .then((city, state) => {
-        // this is how you organize your response back to the front end
         console.log(
-          "~~~~this is the format will be sending back!\n~~~~",
+          "~~~~this is the format will be sending back!\n~~~~"
           // city,
           // state
         );
@@ -68,9 +67,7 @@ storeLocationsRouter
     const knexInstance = req.app.get("db");
     storeLocationsService
       .getSnapCityState(knexInstance, city, state)
-      .then(city, (state) => {
-        // this is how you organize your response back to the front end
-        console.log(
+      .then((city, state) => {        console.log(
           "~~~~this is the format will be sending back!\n~~~~",
           city,
           state
@@ -80,82 +77,78 @@ storeLocationsRouter
       })
       .catch(next);
   });
-      
-  storeLocationsRouter
-      .route("/stores")
-      // .all(requireAuth) //need to reimplement to make it a protected route, optional
-      .all((req, res, next) => {
-        storeLocationsService
-          .getStoreName(
-            req.app.get("db"),
-            req.params.Store_Name.Store_Name,
-            req.user.id
-          )
-          .then((Store_Name) => {
-            if (!Store_Name) {
-              return res.status(404).json({
-                error: { message: `Store location doesn't exist` },
-              });
-            }
-            res.Store_Name = Store_Name;
-            next();
-          })
-          .catch(next);
-      })
 
-      .get((req, res, next) => {
-        storeLocationsService
-        .getStoreName(
-          req.app.get("db"),
-          req.params.Store_Name.Store_Name,
-        ) 
-        .then((Store_Name) => {
-          if (!Store_Name) {
-            return res.status(404).json({
-              error: { message: `Store location doesn't exist` },
-            });
-          }
-          res.Store_Name = Store_Name;
-          res.json(serializeSnapLocationsList(res.Store_Name));
-          next();
-        })
-        .catch(next);
-    })
-      .delete((req, res, next) => {
-        storeLocationsService
-          .deleteStore_Name(req.app.get("db"), req.params.store_name.ObjectId)
-          .then((numRowsAffected) => {
-            res.status(204).end();
-          })
-          .catch(next);
-      })
-      .patch(jsonParser, (req, res, next) => {
-        const { Store_Name } = req.body;
-        const new_snapLocationToUpdate = { Store_Name };
-
-        const numberOfValues = Object.values(new_snapLocationToUpdate).filter(
-          Boolean
-        ).length;
-        if (numberOfValues === 0)
-          return res.status(400).json({
-            error: {
-              message: `Request body must content either 'SNAP store name'`,
-            },
+storeLocationsRouter
+  .route("/stores")
+  // .all(requireAuth) //need to re-implement to make it a protected route, optional
+  .all((req, res, next) => {
+    storeLocationsService
+      .getStoreName(
+        req.app.get("db"),
+        req.params.Store_Name.Store_Name,
+        req.user.id
+      )
+      .then((Store_Name) => {
+        if (!Store_Name) {
+          return res.status(404).json({
+            error: { message: `Store location doesn't exist` },
           });
-    });
+        }
+        res.Store_Name = Store_Name;
+        next();
+      })
+      .catch(next);
+  })
 
-    // storeLocationsService
-    //   .updateStore_Name(
-    //     req.app.get("db"),
-    //     req.params.Store_Name.Store_Name,
-    //     store_nameToUpdate
-    //   )
-    //   .then((updateStore_Name) => {
-    //     res
-    //       .status(204)
-    //       .json(serializeSnapLocationsList(updateStore_Name[0]));
-    //   })
-    //   .catch(next);
+  .get((req, res, next) => {
+    storeLocationsService
+      .getStoreName(req.app.get("db"), req.params.Store_Name.Store_Name)
+      .then((Store_Name) => {
+        if (!Store_Name) {
+          return res.status(404).json({
+            error: { message: `Store location doesn't exist` },
+          });
+        }
+        res.Store_Name = Store_Name;
+        res.json(serializeSnapLocationsList(res.Store_Name));
+        next();
+      })
+      .catch(next);
+  })
+  .delete((req, res, next) => {
+    storeLocationsService
+      .deleteStore_Name(req.app.get("db"), req.params.store_name.ObjectId)
+      .then((numRowsAffected) => {
+        res.status(204).end();
+      })
+      .catch(next);
+  })
+  .patch(jsonParser, (req, res, next) => {
+    const { Store_Name } = req.body;
+    const new_snapLocationToUpdate = { Store_Name };
 
+    const numberOfValues = Object.values(new_snapLocationToUpdate).filter(
+      Boolean
+    ).length;
+    if (numberOfValues === 0)
+      return res.status(400).json({
+        error: {
+          message: `Request body must content either 'SNAP store name'`,
+        },
+      });
+  });
+
+// storeLocationsService
+//   .updateStore_Name(
+//     req.app.get("db"),
+//     req.params.Store_Name.Store_Name,
+//     store_nameToUpdate
+//   )
+//   .then((updateStore_Name) => {
+//     res
+//       .status(204)
+//       .json(serializeSnapLocationsList(updateStore_Name[0]));
+//   })
+//   .catch(next);
 
 module.exports = storeLocationsRouter;
