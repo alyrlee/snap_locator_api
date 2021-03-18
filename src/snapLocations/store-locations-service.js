@@ -10,6 +10,7 @@ const storeLocationsService = {
             .from('snap_locations') 
             .where({city: city})
             .where({state: state})
+            .limit(40)
     }, 
     getSnapLocationsByName(knex, Store_Name ) {
         return knex
