@@ -50,12 +50,12 @@ storeLocationsRouter
     const knexInstance = req.app.get("db");
     storeLocationsService
       .getSnapCityState(knexInstance, city, state)
-      .then(city, (state) => {
+      .then((city, state) => {
         // this is how you organize your response back to the front end
         console.log(
           "~~~~this is the format will be sending back!\n~~~~",
-          city,
-          state
+          // city,
+          // state
         );
         res.json({ city, state });
       })
