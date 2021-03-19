@@ -63,7 +63,7 @@ storeLocationsRouter
   .post(jsonParser, (req, res, next) => {
     console.log("request is: ", req);
     const { city, state } = req.body;
-    console.log("we received city/state from front end??", city, state);
+    console.log("we have posted city/state from front end??", city, state);
     const knexInstance = req.app.get("db");
     storeLocationsService
       .getSnapCityState(knexInstance, city, state)
