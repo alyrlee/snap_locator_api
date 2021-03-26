@@ -1,6 +1,5 @@
 const express = require('express');
 const AuthService = require('./auth-service');
-const bcrypt = require('bcryptjs');
 
 const authRouter = express.Router();
 const jsonBodyParser = express.json(); 
@@ -43,7 +42,7 @@ authRouter
           })
           .catch(next)
       })
-    
+       
     module.exports = authRouter
           
 

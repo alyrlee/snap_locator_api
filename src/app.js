@@ -20,7 +20,7 @@ app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors());
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
     res.send('Hello, welcome to SNAP Locator API')
 });
 
@@ -32,6 +32,7 @@ app.use(function(req, res, next) {
  
 app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/register', usersRouter);
 app.use('/api/stores', storesRouter); 
 app.use('/api/cityState', storesRouter);
 app.use('/api/profile', profileRouter);
