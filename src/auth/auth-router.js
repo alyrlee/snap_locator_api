@@ -39,7 +39,7 @@ authRouter
               error: 'Incorrect password',
             })
           }
-          })
+        })
           .catch(next)
       })
        
