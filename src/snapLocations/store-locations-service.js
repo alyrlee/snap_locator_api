@@ -1,46 +1,34 @@
 const storeLocationsService = {
     getSnapLocations(knex) {
         return knex
-            .from('snap_locations')
-            .select('*')
-            
+            .select('*')    
+            .from('snap_locations') 
     }, 
-    //return on front end to display as an array store_name, ObjectId,address, lat, log, city, state
-    //assign markers with ObjectID, need X,Y as coordinates for marker coordinates
-    getSnapCityState(knex) {
+    getSnapCityState(knex, city, state) {
     return knex
-            .from('snap_locations')
-            .select('*') 
-            .where(city, 'city')
-            .where(state, 'state')
-            // .limit(50)
-         
+            .select('*')    
+            .from('snap_locations') 
+            .where({city: city})
+            .where({state: state})
+            .limit(40)
     }, 
+    getSnapLocationsByName(knex, Store_Name ) {
+        return knex
+            .select('*')    
+            .from('snap_locations')
+            .where({Store_Name: Store_Name})
+  },     
    getSnapLocationsById(knex, ObjectId ) {
         return knex
+            .select('*')    
             .from('snap_locations')
-            .select('*')
             .where({ObjectId: ObjectId})
                  .first(); 
-  },  
-  insertSnapLocations(knex, newSnapLocation) {
-         return knex
-            .insert(newSnapLocation)
-            .into('snap_locations')
-            .returning('*')
-            .then(rows => {
-                return rows[0]
-            });
-  },         
+  },     
   deleteSnapLocations(knex,Store_Name){
         return knex ('Store_Name')
             .where('Store_Name', Store_Name)
             .delete();
-  },
-  updateSnapLocations(knex, Store_Name) {
-        return knex ('Store_Name')
-            .where('Store_Name', Store_Name)
-            .update();
   },
 serializeStores(Store_Name) {
     const { user } = Store_Name
