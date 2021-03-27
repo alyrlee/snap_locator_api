@@ -6,7 +6,7 @@ const AuthService = {
   getUserWithUserName(db, user_name) {
     return db('snap_app_users')
       .where({ user_name })
-      .first()
+      // .first()
   },
   comparePasswords(password, hash) {
     return(password === hash)
