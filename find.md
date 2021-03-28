@@ -17,7 +17,6 @@ React Geocode Api: https://www.npmjs.com/package//react-geocode
 
 Goolge Maps in React
 
-
 Quickstart
 First, install the library:
 
