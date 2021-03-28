@@ -7,6 +7,8 @@ Communities suffer disproportionately from illness related to lack of access to 
 SNAP Store Locator will allow the user to search for retailers and grocers nearby that accept SNAP benefits and also provide a list of 
 food items that are sold.
 
+Client: snap-client: https://github.com/alyrlee/snap-client
+
 ## Open Endpoints
 
 Open endpoints require no Authentication.
