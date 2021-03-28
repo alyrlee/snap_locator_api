@@ -46,16 +46,10 @@ storeLocationsRouter
   .get(jsonParser, (req, res, next) => {
     console.log("request is: ", req);
     const { city, state } = req.body;
-    console.log("we received city/state from front end??", city, state);
     const knexInstance = req.app.get("db");
     storeLocationsService
       .getSnapCityState(knexInstance, city, state)
       .then((city, state) => {
-        console.log(
-          "~~~~this is the format will be sending back!\n~~~~"
-          // city,
-          // state
-        );
         res.json({ city, state });
       })
       .catch(next);
@@ -66,8 +60,7 @@ storeLocationsRouter
     const knexInstance = req.app.get("db");
     storeLocationsService
       .getSnapCityState(knexInstance, city, state)
-      .then((city, state) => {        console.log(
-          "~~~~this is the format will be sending back!\n~~~~",
+      .then((city, state) => {(
           city,
           state
         );
