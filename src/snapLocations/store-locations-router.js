@@ -46,16 +46,10 @@ storeLocationsRouter
   .get(jsonParser, (req, res, next) => {
     console.log("request is: ", req);
     const { city, state } = req.body;
-    console.log("we received city/state from front end??", city, state);
     const knexInstance = req.app.get("db");
     storeLocationsService
       .getSnapCityState(knexInstance, city, state)
       .then((city, state) => {
-        console.log(
-          "~~~~this is the format will be sending back!\n~~~~"
-          // city,
-          // state
-        );
         res.json({ city, state });
       })
       .catch(next);
@@ -63,12 +57,10 @@ storeLocationsRouter
   .post(jsonParser, (req, res, next) => {
     console.log("request is: ", req);
     const { city, state } = req.body;
-    console.log("we have posted city/state from front end??", city, state);
     const knexInstance = req.app.get("db");
     storeLocationsService
       .getSnapCityState(knexInstance, city, state)
-      .then((city, state) => {        console.log(
-          "~~~~this is the format will be sending back!\n~~~~",
+      .then((city, state) => {(
           city,
           state
         );
@@ -80,7 +72,6 @@ storeLocationsRouter
 
 storeLocationsRouter
   .route("/stores")
-  // .all(requireAuth) //need to re-implement to make it a protected route, optional
   .all((req, res, next) => {
     storeLocationsService
       .getStoreName(
@@ -137,18 +128,5 @@ storeLocationsRouter
         },
       });
   });
-
-// storeLocationsService
-//   .updateStore_Name(
-//     req.app.get("db"),
-//     req.params.Store_Name.Store_Name,
-//     store_nameToUpdate
-//   )
-//   .then((updateStore_Name) => {
-//     res
-//       .status(204)
-//       .json(serializeSnapLocationsList(updateStore_Name[0]));
-//   })
-//   .catch(next);
 
 module.exports = storeLocationsRouter;
