@@ -5,7 +5,7 @@ process.env.JWT_SECRET = 'test-jwt-secret'
 require('dotenv').config()
 
 process.env.TEST_DATABASE_URL = process.env.TEST_DATABASE_URL
-  || 'postgres://xjjnbkymmwibzv:2aa5a60dda71fc581ece0493a74901ade2fd024cd9e117db0e36c3afbfc7c420@ec2-52-7-168-69.compute-1.amazonaws.com:5432/d58gi1rjhfmr7g_test'
+  || 'postgres://nsdquldjuminiw:52cdbad046bd1b9bc25ea812be935abd669e8a87c931dac3e6002d65077af50c@ec2-54-196-33-23.compute-1.amazonaws.com:5432/d9hqjm9h9fb7er_test'
 
 const { expect } = require('chai')
 const supertest = require('supertest')
