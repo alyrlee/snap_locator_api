@@ -16,11 +16,11 @@ const profileService = {
 serializeUserProfile(user_name) {
     const { user } = user_name
     return {
-        id: user.id,
+        id: xss(user.id),
         text: xss(user_saved_locations.text),
         date_created: new Date(user_saved_locations.date_created),
         user: {
-                id: user_name.id,
+                id: xss (user_name.id),
                 full_name: xss(user_name.full_name),
                 user_name: xss(user_name.user_name),
                 text: xss(user_saved_locations.text),
