@@ -18,7 +18,6 @@ Open endpoints require no Authentication.
 ## Endpoints that require Authentication
 
 * [Login](login.md) : `POST /api/auth/login/`
-* [My Account](profile.md) : `POST /api/profile/`
 * [Snap Locator](stores.md) : `POST/api/stores/` 
 
 Closed endpoints require a valid Token to be included in the header of the request. A Token can be acquired from the Login view above.
@@ -34,8 +33,6 @@ Token is provided with the request:
 ### Account related
 
 Endpoints for viewing and manipulating the Accounts that the Authenticated User has permissions to access.
-
-* [My Account](profile.md) : `POST /api/profile/`
 
 ## Scripts
 
