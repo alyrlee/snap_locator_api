@@ -15,6 +15,14 @@ profileRouter
       })
       .catch(next)
   })
+  .get((req, res, next) => {
+    profileService.getProfile(req.app.get('db'))
+      .then(user_name => {
+        res.json(user_name.map(profileService.serializeUserProfile))
+        console.log('user name is:', user_name);
+      })
+      .catch(next)
+  })
 
 profileRouter.route('/:user_id/')
   .all(checkProfileExists)
