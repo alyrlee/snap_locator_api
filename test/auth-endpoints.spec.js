@@ -8,9 +8,9 @@ describe.only('Auth Endpoints', function() {
 
   const { 
     testUsers 
-  } = helpers.makeStoresFixtures()
+  } = helpers.makeUsersArray()
 
-  const testUser = testUsers[0]
+  const testUser = testUsers
 
   before('make knex instance', () => {
     db = knex({
@@ -28,7 +28,7 @@ describe.only('Auth Endpoints', function() {
 
   describe(`POST /api/auth/login`, () => {
     beforeEach('insert users', () =>
-      helpers.seedUsers(
+      helpers.makeUsersArray(
         db,
         testUsers,
       )
@@ -55,19 +55,19 @@ describe.only('Auth Endpoints', function() {
     })
 
     it(`responds 400 'invalid user_name or password' when bad user_name`, () => {
-      const userInvalidUser = { user_name: 'user-not', password: 'existy' }
+      const userInvalidUser = { user_name: 'user-not', password: testUser.password }
       return supertest(app)
         .post('/api/auth/login')
         .send(userInvalidUser)
-        .expect(400, { error: `Incorrect user_name or password` })
+        .expect(400, { error: `Incorrect user_name` })
     })
 
-    it(`responds 400 'invalid user_name or password' when bad password`, () => {
+    it(`responds 400 'invalid password' when bad password`, () => {
       const userInvalidPass = { user_name: testUser.user_name, password: 'incorrect' }
       return supertest(app)
         .post('/api/auth/login')
         .send(userInvalidPass)
-        .expect(400, { error: `Incorrect user_name or password` })
+        .expect(400, { error: `Incorrect password` })
     })
 
     it(`responds 200 and JWT auth token using secret when valid credentials`, () => {

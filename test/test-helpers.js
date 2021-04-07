@@ -6,8 +6,7 @@ function makeUsersArray() {
       {
         id: 1,
         user_name: 'DemoUser2020',
-        password: 'DemoUserSnap*',
-        password: 'password',
+        password: 'DemoUser2020*',
         date_created: new Date('2029-01-22T16:28:32.615Z'),
       },
     ]
