@@ -11,6 +11,7 @@ describe.only('Auth Endpoints', function() {
   } = helpers.makeUsersArray()
 
   const testUser = testUsers
+  console.log('testUsers', testUsers);
 
   before('make knex instance', () => {
     db = knex({
