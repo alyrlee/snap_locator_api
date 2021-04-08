@@ -9,6 +9,12 @@ function makeUsersArray() {
         password: 'DemoUser2020*',
         date_created: new Date('2020-01-22T16:28:32.615Z'),
       },
+      {
+        id: 2,
+        user_name: 'dfgdfg',
+        password: 'dfgdfgdfgdfgdfg*',
+        date_created: new Date('2020-01-23T16:28:32.615Z'),
+      },
     ]
 } 
 function makeStoresArray () {
@@ -64,7 +70,6 @@ function seedUsers(db, users) {
   }))
   return db.into('snap_users').insert(preppedUsers)
     .then(() =>
-      // update the auto sequence to stay in sync
       db.raw(
         `SELECT setval('snap_users_id_seq', ?)`,
         [users[users.length - 1].id],

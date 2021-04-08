@@ -7,7 +7,6 @@ const {NODE_ENV} = require('./config');
 const authRouter = require('./auth/auth-router');
 const usersRouter = require('./users/users-router');
 const storesRouter = require('./snapLocations/store-locations-router');
-const userSavedLocationsRouter = require('./savedLocations/user-saved-locations-router');
 
 const app = express();
 
@@ -33,7 +32,6 @@ app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/stores', storesRouter); 
 app.use('/api/cityState', storesRouter);
-app.use('/api/savedLocations', userSavedLocationsRouter);
 
 app.use(function errorHandler(error, req, res, next) {
     let response
