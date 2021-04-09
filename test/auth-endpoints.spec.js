@@ -6,12 +6,8 @@ const helpers = require("./test-helpers");
 describe.only("Auth Endpoints", function () {
   let db;
 
-  // console.log("helpers", helpers);
-
   const testUsers  = helpers.makeUsersArray();
   const testUser1 = testUsers[0];
-  const testUser2 = testUsers[1];
- 
 
   console.log("testUsers", testUsers);
 
@@ -25,9 +21,9 @@ describe.only("Auth Endpoints", function () {
 
   after("disconnect from db", () => db.destroy());
 
-  before("cleanup", () => helpers.cleanTables(db));
+  // beforeEach("cleanup", () => helpers.cleanTables(db));
 
-  afterEach("cleanup", () => helpers.cleanTables(db));
+  // afterEach("cleanup", () => helpers.cleanTables(db));
 
   describe(`POST /api/auth/login`, () => {
     beforeEach("insert users", () => helpers.makeUsersArray(db, testUsers));
@@ -40,7 +36,7 @@ describe.only("Auth Endpoints", function () {
         password: testUser1.password,
       };
 
-      it(`responds with 400 required error when '${field}' is missing`, () => {
+      it(`responds with 400 required error when Missing '${field}' in request body`, () => {
         delete loginAttemptBody[field];
 
         return supertest(app)
@@ -52,9 +48,9 @@ describe.only("Auth Endpoints", function () {
       });
     });
 
-    it(`responds 400 'invalid user_name or password' when bad user_name`, () => {
+    it(`responds 400 'Incorrect user_name`, () => {
       const userInvalidUser = {
-        user_name: "user-not",
+        user_name: (!testUser1.user_name),
         password: testUsers.password,
       };
       return supertest(app)
@@ -63,10 +59,10 @@ describe.only("Auth Endpoints", function () {
         .expect(400, { error: `Incorrect user_name` });
     });
 
-    it(`responds 400 'invalid password' when bad password`, () => {
+    it(`responds 400 'Incorrect password`, () => {
       const userInvalidPass = {
-        user_name: testUsers.user_name,
-        password: "incorrect",
+        user_name: testUser1.user_name,
+        password: (!testUser1.password),
       };
       return supertest(app)
         .post("/api/auth/login")
@@ -76,14 +72,14 @@ describe.only("Auth Endpoints", function () {
 
     it(`responds 200 and JWT auth token using secret when valid credentials`, () => {
       const userValidCreds = {
-        user_name: testUsers.user_name,
-        password: testUsers.password,
+        user_name: testUser1.user_name,
+        password: testUser1.password,
       };
       const expectedToken = jwt.sign(
-        { user_id: testUsers.id },
+        { user_id: testUser1.id },
         process.env.JWT_SECRET,
         {
-          subject: testUsers.user_name,
+          subject: testUser1.user_name,
           algorithm: "HS256",
         }
       );
