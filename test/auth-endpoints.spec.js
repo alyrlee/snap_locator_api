@@ -17,11 +17,11 @@ describe.only("Auth Endpoints", function () {
     app.set("db", db)
   });
 
-  after("disconnect from db", () => db.destroy())
+  after("disconnect from db",() => db.destroy())
 
-  before("cleanup", () => db(db).truncate())
+  beforeEach("cleanup",() => db.truncate(db))
 
-  afterEach("cleanup", () => db(db).truncate())
+  afterEach("cleanup",() => db.truncate(db))
 
   describe(`POST /api/auth/login`, () => {
     // const testUsers = helpers.makeUsersArray()

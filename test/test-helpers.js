@@ -2,28 +2,13 @@ function makeUsersArray() {
   return [
     {
       id: 1,
-      user_name: "test_user1",
-      password: "password",
+      user_name: "Demo User",
+      password: "DemoUser2020*",
     },
     {
       id: 2,
-      user_name: "test_user2",
-      password: "password",
-    },
-    {
-      id: 3,
-      user_name: "test_user3",
-      password: "password",
-    },
-    {
-      id: 4,
-      user_name: "test_user4",
-      password: "password",
-    },
-    {
-      id: 5,
-      user_name: "test_user5",
-      password: "password",
+      user_name: "Dee Deboopp",
+      password: "Dem393jnkjfeaoUser2020*",
     },
   ];
 }
