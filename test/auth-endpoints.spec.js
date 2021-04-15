@@ -26,7 +26,7 @@ describe.only("Auth Endpoints", function () {
 
   after("disconnect from db",() => db.destroy())
 
-//   beforeEach("cleanup",() => db('snap_app_users').truncate())
+  beforeEach("cleanup",() => db('snap_app_users').truncate())
 
   afterEach("cleanup",() => db('snap_app_users').truncate())
 
@@ -40,10 +40,8 @@ describe.only("Auth Endpoints", function () {
     const requiredFields = ['user_name', 'password']
 
     requiredFields.forEach(field => {
-        const loginAttemptBody = {
-            user_name: testUser.user_name,
-            password: testUser.password
-        }
+        const loginAttemptBody = 
+        { user_name: 'Demo User', password: 'DemoUser2020*' }
 
         it(`responds with 400 required error when '${field}' is missing`, () => {
             // delete loginAttemptBody[field]
@@ -93,4 +91,4 @@ describe.only("Auth Endpoints", function () {
         })
     })
 })
-})
+// })
