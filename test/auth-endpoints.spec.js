@@ -22,11 +22,11 @@ describe.only("Auth Endpoints", function () {
     });
     console.log("what is the test db", process.env.TEST_DATABASE_URL);
     app.set("db", db);
-    await db.schema.createTable('snap_app_users', (table) => {
-        table.integer('id')
-        table.varchar(255('user_name'))
-        table.varchar(255('password'))
-      })
+    // await db.schema.createTable('snap_app_users', (table) => {
+    //     table.integer('id')
+    //     table.varchar(255('user_name'))
+    //     table.varchar(255('password'))
+    //   })
   });
 
   describe(`POST /api/auth/login`, () => {
