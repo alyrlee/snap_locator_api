@@ -3,10 +3,6 @@ const jwt = require("jsonwebtoken");
 const app = require("../src/app");
 const helpers = require("./test-helpers");
 
-/*
-
-*/
-
 describe.only("Auth Endpoints", function () {
   let db
 
@@ -20,6 +16,12 @@ describe.only("Auth Endpoints", function () {
     });
     console.log("what is the test db", process.env.TEST_DATABASE_URL);
     app.set("db", db)
+    await db.schema.createTable('snap_app_users', (table) => {
+        table.integer('id')
+        table.string('user_name')
+        table.integer('password')
+      })
+    });
   });
 
   after("disconnect from db",() => db.destroy())
