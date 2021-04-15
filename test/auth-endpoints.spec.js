@@ -19,12 +19,11 @@ describe.only("Auth Endpoints", function () {
 
   after("disconnect from db",() => db.destroy())
 
-  beforeEach("cleanup",() => db.truncate(db))
+  beforeEach("cleanup",() => db('snap_app_users').truncate())
 
-  afterEach("cleanup",() => db.truncate(db))
+  afterEach("cleanup",() => db('snap_app_users').truncate())
 
   describe(`POST /api/auth/login`, () => {
-    // const testUsers = helpers.makeUsersArray()
     beforeEach("insert users", () =>  {
       return db
       .into('snap_app_users')
