@@ -6,38 +6,37 @@ const helpers = require("./test-helpers");
 describe.only("Auth Endpoints", function () {
   let db;
 
-  const testUsers  = helpers.makeUsersArray();
-  const testUser1 = testUsers[0];
+  const testUsers = helpers.makeUsersArray()
+  console.log('users', helpers.makeUsersArray());
+  const testUser = testUsers[0]
 
-  console.log("testUsers", testUsers);
 
   before("make knex instance", () => {
     db = knex({
       client: "pg",
-      connection: process.env.TEST_DB_URL,
+      connection: process.env.TEST_DATABASE_URL,
     });
     app.set("db", db);
   });
 
   after("disconnect from db", () => db.destroy());
 
-  // beforeEach("cleanup", () => helpers.cleanTables(db));
+  before("cleanup", () => db(db).truncate());
 
-  // afterEach("cleanup", () => helpers.cleanTables(db));
+  afterEach("cleanup", () => db(db).truncate());
 
   describe(`POST /api/auth/login`, () => {
-    beforeEach("insert users", () => helpers.makeUsersArray(db, testUsers));
-
+    beforeEach("insert users", () =>  helpers.seedUsers(db, testUsers))
+    
     const requiredFields = ["user_name", "password"];
-
-    requiredFields.forEach((field) => {
+    requiredFields.forEach(field => {
       const loginAttemptBody = {
-        user_name: testUser1.user_name,
-        password: testUser1.password,
-      };
-
+        user_name: testUser.user_name,
+        password: testUser.password,
+      }
+      
       it(`responds with 400 required error when Missing '${field}' in request body`, () => {
-        delete loginAttemptBody[field];
+        delete loginAttemptBody[field]
 
         return supertest(app)
           .post("/api/auth/login")
@@ -50,8 +49,8 @@ describe.only("Auth Endpoints", function () {
 
     it(`responds 400 'Incorrect user_name`, () => {
       const userInvalidUser = {
-        user_name: (!testUser1.user_name),
-        password: testUsers.password,
+        user_name: 'IAmNotValidUser',
+        password: testUser.password,
       };
       return supertest(app)
         .post("/api/auth/login")
@@ -62,7 +61,7 @@ describe.only("Auth Endpoints", function () {
     it(`responds 400 'Incorrect password`, () => {
       const userInvalidPass = {
         user_name: testUser1.user_name,
-        password: (!testUser1.password),
+        password: 'thisisnotavalidpw',
       };
       return supertest(app)
         .post("/api/auth/login")
@@ -72,14 +71,14 @@ describe.only("Auth Endpoints", function () {
 
     it(`responds 200 and JWT auth token using secret when valid credentials`, () => {
       const userValidCreds = {
-        user_name: testUser1.user_name,
-        password: testUser1.password,
+        user_name: testUser.user_name,
+        password: testUser.password,
       };
       const expectedToken = jwt.sign(
-        { user_id: testUser1.id },
+        { user_id: testUser.id },
         process.env.JWT_SECRET,
         {
-          subject: testUser1.user_name,
+          subject: testUser.user_name,
           algorithm: "HS256",
         }
       );
