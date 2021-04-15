@@ -1,14 +1,18 @@
 const bcrypt = require('bcryptjs')
 
-
 function makeUsersArray() {
     return [
       {
         id: 1,
         user_name: 'DemoUser2020',
-        password: 'DemoUserSnap*',
-        password: 'password',
-        date_created: new Date('2029-01-22T16:28:32.615Z'),
+        password: 'DemoUser2020*',
+        date_created: new Date('2020-01-22T16:28:32.615Z'),
+      },
+      {
+        id: 2,
+        user_name: 'dfgdfg',
+        password: 'dfgdfgdfgdfgdfg*',
+        date_created: new Date('2020-01-23T16:28:32.615Z'),
       },
     ]
 } 
@@ -46,28 +50,15 @@ function makeStoresArray () {
     ]
 }
 
-function makeUserSavedLocationsArray (users, userSavedLocations) {
-  return [
-  {
-    id: 1,
-    ObjectId: Object[0].Id,
-    user_id: users[0].id,
-    userSavedLocations: userSavedLocations,
-    date_created: new Date('2029-01-22T16:28:32.615Z'),
-  },
- ]
-}
-
 function seedUsers(db, users) {
-  const preppedUsers = users.map(user => ({
+  const testUsers = users.map(user => ({
     ...user,
     password: bcrypt.hashSync(user.password, 1)
   }))
-  return db.into('snap_users').insert(preppedUsers)
+  return db.into('snap_app_users').insert(testUsers)
     .then(() =>
-      // update the auto sequence to stay in sync
       db.raw(
-        `SELECT setval('snap_users_id_seq', ?)`,
+        `SELECT setval('snap_app_users_id_seq', ?)`,
         [users[users.length - 1].id],
       )
     )
@@ -81,7 +72,6 @@ function makeAuthHeader(user) {
 module.exports = {
     makeUsersArray,
     makeStoresArray,
-    makeUserSavedLocationsArray,
     makeAuthHeader,
     seedUsers,
 }

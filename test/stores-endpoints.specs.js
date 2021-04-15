@@ -1,6 +1,5 @@
 const knex = require('knex');
 const app = require('../src/app');
-const {makeStoresArray} = require('./stores.fixtures');
 const helpers = require('./test-helpers');
 const supertest = require('supertest');
 
@@ -15,13 +14,16 @@ describe ('Stores Endpoints', function() {
         app.set('db', db)
     });
 
+    const testStores = helpers.makeStoresArray();
+    const testStores1 = testStores[0];
+
     after('disconnect from db', () => db.destroy());
     before('clean the first table', () => db('snap_locations').truncate());
     afterEach('cleanup first table', () => db('snap_locations').truncate());
 
     describe (`GET /api/stores`, () => {
         context('Given there is no store feedback in the database', () => {
-            const testStores = makeStoresArray();
+            const testStores = helpers.makeStoresArray();
                     
             beforeEach('insert test stores', () => {
                 helpers.seedStores(db, testStores)
@@ -36,7 +38,7 @@ describe ('Stores Endpoints', function() {
         })
     
         context ('Given there is a store in the database', () => {
-            const testStores = makeStoresArray();
+            const testStores = helpers.makeStoresArray();
             const validStores = testStores[0];
                     
             beforeEach('insert test stores', () => {
@@ -45,7 +47,7 @@ describe ('Stores Endpoints', function() {
 
             beforeEach('insert test stores', () => {
                 return db
-                .into('stores')
+                .into('snap_locations')
                 .insert(testStores)
             });
 
@@ -57,13 +59,8 @@ describe ('Stores Endpoints', function() {
 
             const protectedEndpoints = [
                 {
-                    name: `GET /api/stores`,
-                    path: '/api/stores/',
-                    method: supertest(app).get,
-                },
-                {
                     name: `POST /api/stores`,
-                    path: '/api/stores/',
+                    path: '/api/stores/cityState',
                     method: supertest(app).post
                 }
             ];

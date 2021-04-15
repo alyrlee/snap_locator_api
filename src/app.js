@@ -7,8 +7,6 @@ const {NODE_ENV} = require('./config');
 const authRouter = require('./auth/auth-router');
 const usersRouter = require('./users/users-router');
 const storesRouter = require('./snapLocations/store-locations-router');
-const profileRouter = require('./Profile/profile-router');
-const userSavedLocationsRouter = require('./savedLocations/user-saved-locations-router');
 
 const app = express();
 
@@ -25,7 +23,7 @@ app.get('/api', (req, res) => {
 });
 
 app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin","*","https://snap-locator-client-alyrlee.vercel.app" ); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Origin","*","https://snap-locator-client.vercel.app" ); 
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
@@ -33,9 +31,6 @@ app.use(function(req, res, next) {
 app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/stores', storesRouter); 
-app.use('/api/cityState', storesRouter);
-app.use('/api/profile', profileRouter);
-app.use('/api/savedLocations', userSavedLocationsRouter);
 
 app.use(function errorHandler(error, req, res, next) {
     let response
