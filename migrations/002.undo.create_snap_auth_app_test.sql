@@ -12,4 +12,3 @@ ALTER TABLE snap_locations
 
 -- DROP TABLE IF EXISTS users_saved_locations;
 
-DROP TABLE IF EXISTS snap_test;
