@@ -3,23 +3,28 @@ const jwt = require("jsonwebtoken");
 const app = require("../src/app");
 const helpers = require("./test-helpers");
 
+/*
+
+*/
+
 describe.only("Auth Endpoints", function () {
   let db
 
   const { testUsers } = helpers.makeSnapFixtures()
   const testUser = testUsers[0]
  
-  before("make knex instance", () => {
+  before("make knex instance", async () => {
     db = knex({
       client: "pg",
       connection: process.env.TEST_DATABASE_URL,
     });
+    console.log("what is the test db", process.env.TEST_DATABASE_URL);
     app.set("db", db)
   });
 
   after("disconnect from db",() => db.destroy())
 
-  beforeEach("cleanup",() => db('snap_app_users').truncate())
+//   beforeEach("cleanup",() => db('snap_app_users').truncate())
 
   afterEach("cleanup",() => db('snap_app_users').truncate())
 
@@ -39,8 +44,7 @@ describe.only("Auth Endpoints", function () {
         }
 
         it(`responds with 400 required error when '${field}' is missing`, () => {
-            delete loginAttemptBody[field]
-
+            // delete loginAttemptBody[field]
             return supertest(app)
                 .post('/api/auth/login')
                 .send(loginAttemptBody)
