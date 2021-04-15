@@ -7,7 +7,7 @@ describe.only("Auth Endpoints", function () {
   let db;
 
   const { testUsers } = helpers.makeSnapFixtures();
-  // const testUser = testUsers[0];
+  const testUser = testUsers[0];
 
   after("disconnect from db",() => db.destroy());
 
@@ -30,7 +30,7 @@ describe.only("Auth Endpoints", function () {
   });
 
   describe(`POST /api/auth/login`, () => {
-    beforeEach("insert", () =>  {
+    beforeEach("insert into users", () =>  {
       return db
       .into('snap_app_users')
       .insert(testUsers);

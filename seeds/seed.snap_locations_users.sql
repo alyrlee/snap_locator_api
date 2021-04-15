@@ -2,7 +2,7 @@ BEGIN;
 
 -- TRUNCATE TABLE snap_app_users;
 
-INSERT INTO snap_app_users (user_id, full_name, user_name, email, password) 
+INSERT INTO snap_app_users (id, full_name, user_name, email, password) 
 VALUES
   (1,'Demo User', 'DemoUser2020','demo@gmail.com','DemoUser2020*'),
   (2,'Dee Deboop','Dee Deboop','dee.de@gmail.com','Dem393jnkjfeaoUser2020*'),

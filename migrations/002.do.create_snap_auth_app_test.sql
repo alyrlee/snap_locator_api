@@ -21,7 +21,8 @@ CREATE TABLE snap_locations (
 );
 
 CREATE TABLE snap_app_users (
-  user_id INTEGER PRIMARY KEY,
+  id INTEGER PRIMARY KEY,
+  full_name TEXT NOT NULL,
   user_name TEXT NOT NULL UNIQUE,
   email TEXT NOT NULL, 
   password TEXT NOT NULL,
