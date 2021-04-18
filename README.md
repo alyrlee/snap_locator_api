@@ -4,8 +4,7 @@ SNAP stands for the Supplemental Nutrition Assistance Program mandated by the Fe
 
 SNAP Store locator is an application that helps users find access to SNAP retailers and grocers.
 Communities suffer disproportionately from illness related to lack of access to fresh and healthy foods.
-SNAP Store Locator will allow the user to search for retailers and grocers nearby that accept SNAP benefits and also provide a list of 
-food items that are sold.
+SNAP Store Locator will allow the user to search for retailers and grocers nearby that accept SNAP benefits and also provide a list of food items that are sold.
 
 Client: snap-client: https://github.com/alyrlee/snap-client
 
@@ -14,25 +13,6 @@ Client: snap-client: https://github.com/alyrlee/snap-client
 Open endpoints require no Authentication.
 
 * [Find](find.md) : `POST /api/find`
-
-## Endpoints that require Authentication
-
-* [Login](login.md) : `POST /api/auth/login/`
-* [Snap Locator](stores.md) : `POST/api/stores/` 
-
-Closed endpoints require a valid Token to be included in the header of the request. A Token can be acquired from the Login view above.
-
-### Current User related
-
-Each endpoint manipulates or displays information related to the User whose
-Token is provided with the request:
-
-* [Show info](user/get.md) : `GET /api/users/`
-* [Update info](user/put.md) : `PUT /api/users/`
-
-### Account related
-
-Endpoints for viewing and manipulating the Accounts that the Authenticated User has permissions to access.
 
 ## Scripts
 

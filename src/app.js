@@ -4,8 +4,6 @@ const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 const {NODE_ENV} = require('./config');
-const authRouter = require('./auth/auth-router');
-const usersRouter = require('./users/users-router');
 const storesRouter = require('./snapLocations/store-locations-router');
 
 const app = express();
@@ -28,9 +26,7 @@ app.use(function(req, res, next) {
     next();
   });
  
-app.use('/api/auth', authRouter);
-app.use('/api/users', usersRouter);
-app.use('/api/stores', storesRouter); 
+app.use('/api/stores/cityState', storesRouter); 
 
 app.use(function errorHandler(error, req, res, next) {
     let response

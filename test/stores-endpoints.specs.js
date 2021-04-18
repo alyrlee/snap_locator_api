@@ -80,14 +80,6 @@ describe ('Stores Endpoints', function() {
                             .set('Authorization', helpers.makeAuthHeader(validStores, invalidSecret))
                             .expect(401, {error: `Unauthorized request`})
                     })
-
-                    it ('Responds with 401 `Unauthorized request` when invalid sub in payload', () => {
-                        const invalidUser = {username: 'fake-user', id: 1}
-
-                        return endpoint.method(endpoint.path)
-                            .set('Authorization', helpers.makeAuthHeader(invalidUser))
-                            .expect(401, {error: `Unauthorized request`})
-                    })
                 })
             })
         })
