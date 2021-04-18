@@ -1,17 +1,3 @@
-function makeUsersArray() {
-  return [
-    {
-      id: 1,
-      user_name: "Demo User",
-      password: "DemoUser2020*",
-    },
-    {
-      id: 2,
-      user_name: "Dee Deboopp",
-      password: "Dem393jnkjfeaoUser2020*",
-    },
-  ];
-}
 function makeStoresArray() {
   return [
     {
@@ -135,21 +121,6 @@ function makeStoresArray() {
   ];
 }
 
-function makeSnapFixtures(){
-  const testUsers = makeUsersArray()
-  return  {testUsers}
-}
-
-function makeAuthHeader(user) {
-  const token = Buffer.from(`${user.user_name}:${user.password}`).toString(
-    "base64"
-  );
-  return `Basic ${token}`;
-}
-
 module.exports = {
-  makeUsersArray,
   makeStoresArray,
-  makeSnapFixtures,
-  makeAuthHeader,
 };

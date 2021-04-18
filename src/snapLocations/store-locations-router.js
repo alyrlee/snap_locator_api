@@ -17,30 +17,6 @@ const serializeSnapLocationsList = (Store_Name) => ({
   longitude: Store_Name.longitude,
 });
 
-// storeLocationsRouter
-//   .route("/")
-//   .get((req, res, next) => {
-//     const knexInstance = req.app.get("db");
-//     storeLocationsService
-//       .getSnapLocations(knexInstance)
-//       .then((Store_Name) => {
-//         res.json(Store_Name.map(serializeSnapLocationsList));
-//       })
-//       .catch(next);
-//   })
-//   .post(jsonParser, (req, res, next) => {
-//     const { Store_Name } = req.body;
-//     const newSnapLocation = { Store_Name };
-
-//     for (const [key, value] of Object.entries(newSnapLocation)) {
-//       if (value == null) {
-//         return res.status(400).json({
-//           error: `Missing '${key}' in request body`,
-//         });
-//       }
-//     }
-//   });
-
 storeLocationsRouter
   .route("/cityState")
   .get(jsonParser, (req, res, next) => {
@@ -65,68 +41,9 @@ storeLocationsRouter
           state
         );
         res.json({ city, state });
-        // res.json(city && state.map(serializeSnapLocationsList));
+        res.json(city && state.map(serializeSnapLocationsList));
       })
       .catch(next);
   });
-
-// storeLocationsRouter
-//   .route("/stores")
-//   .all((req, res, next) => {
-//     storeLocationsService
-//       .getStoreName(
-//         req.app.get("db"),
-//         req.params.Store_Name.Store_Name,
-//         req.user.id
-//       )
-//       .then((Store_Name) => {
-//         if (!Store_Name) {
-//           return res.status(404).json({
-//             error: { message: `Store location doesn't exist` },
-//           });
-//         }
-//         res.Store_Name = Store_Name;
-//         next();
-//       })
-//       .catch(next);
-//   })
-
-  // .get((req, res, next) => {
-  //   storeLocationsService
-  //     .getStoreName(req.app.get("db"), req.params.Store_Name.Store_Name)
-  //     .then((Store_Name) => {
-  //       if (!Store_Name) {
-  //         return res.status(404).json({
-  //           error: { message: `Store location doesn't exist` },
-  //         });
-  //       }
-  //       res.Store_Name = Store_Name;
-  //       res.json(serializeSnapLocationsList(res.Store_Name));
-  //       next();
-  //     })
-  //     .catch(next);
-  // })
-  // .delete((req, res, next) => {
-  //   storeLocationsService
-  //     .deleteStore_Name(req.app.get("db"), req.params.store_name.ObjectId)
-  //     .then((numRowsAffected) => {
-  //       res.status(204).end();
-  //     })
-  //     .catch(next);
-  // })
-  // .patch(jsonParser, (req, res, next) => {
-  //   const { Store_Name } = req.body;
-  //   const new_snapLocationToUpdate = { Store_Name };
-
-  //   const numberOfValues = Object.values(new_snapLocationToUpdate).filter(
-  //     Boolean
-  //   ).length;
-  //   if (numberOfValues === 0)
-  //     return res.status(400).json({
-  //       error: {
-  //         message: `Request body must content either 'SNAP store name'`,
-  //       },
-  //     });
-  // });
 
 module.exports = storeLocationsRouter;
