@@ -4,6 +4,7 @@ SNAP stands for the Supplemental Nutrition Assistance Program mandated by the Fe
 
 SNAP Store locator is an application that helps users find access to SNAP retailers and grocers.
 Communities suffer disproportionately from illness related to lack of access to fresh and healthy foods.
+
 SNAP Store Locator will allow the user to search for retailers and grocers nearby that accept SNAP benefits and also provide a list of food items that are sold.
 
 Client: snap-client: https://github.com/alyrlee/snap-client
@@ -23,7 +24,7 @@ You can start by clicking on the "Get Started" button and you will be taken to t
 
 <hr>
 
-![Image](src/images/home.png)
+![Image]()
 ![Image](src/images/about.png)
 ![Image](src/images/map.png)
 
