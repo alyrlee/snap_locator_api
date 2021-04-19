@@ -1,6 +1,6 @@
 # Find
 
-Google Map that is centered the user's lat,lng location 
+Google Map that is centered on the user's lat,lng location 
 Utilize autocomplete api search widget to search by location
 Google map rendered using React Google Map
 
