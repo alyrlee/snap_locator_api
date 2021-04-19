@@ -20,7 +20,6 @@ const serializeSnapLocationsList = (Store_Name) => ({
 storeLocationsRouter
   .route("/cityState")
   .get(jsonParser, (req, res, next) => {
-    console.log("request is: ", req);
     const { city, state } = req.body;
     const knexInstance = req.app.get("db");
     storeLocationsService
@@ -31,7 +30,6 @@ storeLocationsRouter
       .catch(next);
   })
   .post(jsonParser, (req, res, next) => {
-    console.log("request is: ", req);
     const { city, state } = req.body;
     const knexInstance = req.app.get("db");
     storeLocationsService
