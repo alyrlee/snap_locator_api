@@ -18,7 +18,7 @@ const serializeSnapLocationsList = (Store_Name) => ({
 });
 
 storeLocationsRouter
-  .route("/cityState")
+  .route("stores/cityState")
   .get(jsonParser, (req, res, next) => {
     const { city, state } = req.body;
     const knexInstance = req.app.get("db");
