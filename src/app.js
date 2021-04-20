@@ -26,7 +26,7 @@ app.use(function(req, res, next) {
     next();
   });
  
-app.use('/api/stores/cityState', storesRouter); 
+app.use('/api/stores', storesRouter); 
 
 app.use(function errorHandler(error, req, res, next) {
     let response
