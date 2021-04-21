@@ -40,6 +40,25 @@ storeLocationsRouter
     }
   });
 
+storeLocationsRouter.route("/stores").all((req, res, next) => {
+  storeLocationsService
+    .getStoreName(
+      req.app.get("db"),
+      req.params.Store_Name.Store_Name,
+      req.user.id
+    )
+    .then((Store_Name) => {
+      if (!Store_Name) {
+        return res.status(404).json({
+          error: { message: `Store location doesn't exist` },
+        });
+      }
+      res.Store_Name = Store_Name;
+      next();
+    })
+    .catch(next);
+});
+
 storeLocationsRouter
   .route("/cityState")
   .get(jsonParser, (req, res, next) => {
@@ -63,26 +82,6 @@ storeLocationsRouter
         res.json(city && state.map(serializeSnapLocationsList));
       })
       .catch(next);
-
-    storeLocationsRouter
-    .route("/stores").all((req, res, next) => {
-      storeLocationsService
-        .getStoreName(
-          req.app.get("db"),
-          req.params.Store_Name.Store_Name,
-          req.user.id
-        )
-        .then((Store_Name) => {
-          if (!Store_Name) {
-            return res.status(404).json({
-              error: { message: `Store location doesn't exist` },
-            });
-          }
-          res.Store_Name = Store_Name;
-          next();
-        })
-        .catch(next);
-    });
   });
 
 module.exports = storeLocationsRouter;
