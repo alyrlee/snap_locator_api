@@ -16,9 +16,16 @@ app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors());
 
+app.use('/api/stores', storesRouter); 
+
 app.get('/api', (req, res) => {
     res.send('Hello, welcome to SNAP Locator API')
 });
+
+app.get('api/stores/cityState', (req, res) => {
+    console.log('/cityState-route-is-working')
+    res.send('Welcome to SNAP retailer!')
+})
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin","*","https://snap-locator-client.vercel.app","https://murmuring-shore-59851.herokuapp.com", "https://murmuring-shore-59851.herokuapp.com/api/stores/cityState" ); 
@@ -26,14 +33,16 @@ app.use(function(req, res, next) {
     next();
   });
  
-app.use('/api/stores', storesRouter); 
 
 app.use(function errorHandler(error, req, res, next) {
-    let response
-    console.error(error);
-    if (NODE_ENV === 'production') {
-        response = { error: {message: 'server error.'}};
-    } else {
+    let response;
+    console.error('response failed: ', error);
+
+      if (NODE_ENV === 'production') {
+        response = {message: error.message, error};
+    }
+    else {
+        console.error(error);
         response = {message: error.message, error};
     }
     res.status(500).json(response);
